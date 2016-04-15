@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="gb2312"?>
+<DictConfig version="1.0">
+	<DictConfigList>
+		<!-- 具体业务字典，根据也许需要添加或修改 -->
+		<DictConfig dbName="U8_DB" dictShowName="U8存货字典" dictName="U8存货字典" dictTable="inventory" dictKeyCol="cinvcode" dictValueCol="cinvname" dictOrderByCol="cinvcode" filter=""/>
+		<DictConfig dbName="U8_DB" dictShowName="U8存货规格型号字典" dictName="U8存货规格型号字典" dictTable="inventory" dictKeyCol="cinvcode" dictValueCol="cinvstd" dictOrderByCol="cinvcode" filter=""/>
+		<DictConfig dbName="U8_DB" dictShowName="U8部门字典" dictName="U8部门字典" dictTable="department" dictKeyCol="cdepcode" dictValueCol="cdepname" dictOrderByCol="cdepcode" filter="bdepend='1'"/>
+		<DictConfig dbName="U8_DB" dictShowName="U8仓库字典" dictName="U8仓库字典" dictTable="warehouse" dictKeyCol="cwhcode" dictValueCol="cwhname" dictOrderByCol="cwhcode" filter=""/>
+		<DictConfig dbName="U8_DB" dictShowName="U8客户字典" dictName="U8客户字典" dictTable="customer" dictKeyCol="ccuscode" dictValueCol="ccusabbname" dictOrderByCol="ccusabbname" filter=""/>
+		<DictConfig dbName="U8_DB" dictShowName="U8人员字典" dictName="U8人员字典" dictTable="person" dictKeyCol="cPersonCode" dictValueCol="cPersonName" dictOrderByCol="cPersonName" filter=""/>
+		
+		<!-- 系统字典，请勿修改 -->
+		<DictConfig isSystemDict="true" dictShowName="字典类型字典" dictName="字典类型字典" values="数据库型,枚举型"/>
+		<DictConfig isSystemDict="true" dictShowName="是否字典" dictName="是否字典" values="是,否"/>
+		<DictConfig isSystemDict="true" dictShowName="性别字典" dictName="性别字典" values="男,女"/>
+		<DictConfig isSystemDict="true" dictShowName="部门字典" dictName="部门字典" dictTable="auth_department" dictKeyCol="departmentid" dictValueCol="departmentname" dictOrderByCol="departmentid" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="角色字典" dictName="角色字典" dictTable="auth_role" dictKeyCol="rolename as id" dictValueCol="rolename" dictOrderByCol="rolename" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="U8人员字典" dictName="U8人员字典" dictTable="person" dictKeyCol="cPersonCode" dictValueCol="cPersonName" dictOrderByCol="cPersonName" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="每页行数" dictName="pageCount" values="10,15,20,25,50,100,500"/>
+		<DictConfig isSystemDict="true" dictShowName="导入相同数据处理方式字典" dictName="导入相同数据处理方式字典" values="保持系统中数据不变,覆盖系统中相同数据"/>
+		<DictConfig isSystemDict="true" dictShowName="导入数据处理方式字典" dictName="导入数据处理方式字典" values="新增,覆盖"/>
+	</DictConfigList>
+	<DictRelationList>
+		<DictRelation fromDict="U8部门字典" toDict="U8人员字典" fromDictCol="cdepcode"/>
+		<DictRelation fromDict="U8人员字典" toDict="U8客户字典" fromDictCol="cCusPPerson"/>
+		<DictRelation fromDict="U8仓库字典" toDict="U8存货字典" fromDictCol="cDefWareHouse"/> 
+	</DictRelationList>
+</DictConfig>
