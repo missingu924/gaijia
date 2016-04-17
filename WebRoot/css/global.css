@@ -31,10 +31,9 @@ body {
   cursor: pointer;
   background-repeat: no-repeat;
   background-position: left;
-  padding-left: 16px;
+  padding-left: 18px;
   font-size: 12px;
-  width: 58px;
-  height: 32px;
+  height:20px;
 }
 .button:hover {
   color: #ff6600;
@@ -45,23 +44,29 @@ body {
 .button_add:hover {
   background-image: url(../images/svg/light/orange/16/plus_circle.png);
 }
+.button_add_square {
+  background-image: url(../images/svg/light/gray/16/plus_square.png);
+}
+.button_add_square:hover {
+  background-image: url(../images/svg/light/orange/16/plus_square.png);
+}
 .button_modify {
   background-image: url(../images/svg/light/gray/16/new.png);
-  padding: 0px;
-  width: 16px;
-  height: 16px;
 }
 .button_modify:hover {
   background-image: url(../images/svg/light/orange/16/new.png);
 }
 .button_delete {
   background-image: url(../images/svg/light/gray/16/minus_circle.png);
-  padding: 0px;
-  width: 16px;
-  height: 16px;
 }
 .button_delete:hover {
   background-image: url(../images/svg/light/orange/16/minus_circle.png);
+}
+.button_delete_square {
+  background-image: url(../images/svg/light/gray/16/minus_square.png);
+}
+.button_delete_square:hover {
+  background-image: url(../images/svg/light/orange/16/minus_square.png);
 }
 .button_search {
   background-image: url(../images/svg/light/gray/16/search.png);
@@ -95,7 +100,6 @@ body {
 }
 .button_set {
   background-image: url(../images/svg/light/gray/16/settings.png);
-  width: 78px;
 }
 .button_set:hover {
   background-image: url(../images/svg/light/orange/16/settings.png);
@@ -114,18 +118,17 @@ body {
 }
 .button_dot {
   background-image: url(../images/dot.png);
-  width: 16px;
 }
 .button_clear {
   background-image: url(../images/svg/light/gray/12/replay.png);
-  width: 16px;
 }
 .button_clear:hover  {
   background-image: url(../images/svg/light/orange/12/replay.png);
 }
 .green_button {
   background: #38B162;
-  padding: 6px;
+  height:36px;
+  padding: 10px;
   color: #FFFFFF;
   border: 1px solid #FFFFFF;
   cursor: pointer;
@@ -135,7 +138,7 @@ body {
 }
 .blue_button {
   background: #3399FF;
-  padding: 6px;
+  height:36px;
   color: #FFFFFF;
   border: 1px solid #FFFFFF;
   cursor: pointer;
@@ -276,7 +279,7 @@ table style
 }
 .table th,
 .table td {
-  padding: 6px 8px 6px 8px;
+  padding: 6px 0px 6px 8px;
   line-height: 18px;
   text-align: left;
   vertical-align: middle;
@@ -433,7 +436,7 @@ table style
   cellpadding: 0
 }
 .title_table td {
-  padding: 4px 8px 4px 8px;
+  padding: 4px 0px 4px 0px;
   line-height: 20px;
   vertical-align: left;
   text-align: left;
@@ -441,6 +444,25 @@ table style
   font-weight: bold;
   color: #666666;
   border-bottom: 4px solid #0055a8;
+}
+/*sub title table style*/
+.sub_title_table {
+  margin-top: 16px;
+  max-width: 100%;
+  background-color: #ffffff;
+  border: 0;
+  border-spacing: 0;
+  cellpadding: 0
+}
+.sub_title_table td {
+  padding: 2px 0px 2px 0px;
+  line-height: 20px;
+  vertical-align: left;
+  text-align: left;
+  font-size: 12px;
+  font-weight: bold;
+  color: #666666;
+  border-bottom: 2px solid #0055a8;
 }
 /*alert table style*/
 .alert_table {

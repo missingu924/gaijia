@@ -21,8 +21,8 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 
-import com.hz.auth.obj.AuthUser;
 import com.hz.util.SystemConstant;
+import com.wuyg.auth.obj.AuthUserObj;
 import com.wuyg.common.dao.BaseDbObj;
 import com.wuyg.common.dao.IBaseDAO;
 import com.wuyg.common.obj.BaseSearchCondition;
@@ -37,7 +37,7 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 	private Logger log = Logger.getLogger(getClass());
 
 	// 当前登陆用户
-	public AuthUser currentUser;
+	public AuthUserObj currentUser;
 
 	// 领域实例主键值
 	public String domainInstanceKeyValue;
@@ -114,7 +114,7 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 		try
 		{
 			// 获取当前用户信息
-			currentUser = (AuthUser) request.getSession().getAttribute(SystemConstant.AUTH_USER_INFO);
+			currentUser = (AuthUserObj) request.getSession().getAttribute(SystemConstant.AUTH_USER_INFO);
 
 			// 获取执行的方法
 			String method = request.getParameter(METHOD);

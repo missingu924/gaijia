@@ -43,27 +43,15 @@
 			</tr> 
 			<tr> 
 				<td> 
-					<%=domainInstance.getPropertyCnName("departmentid") %>: 
+					<%=domainInstance.getPropertyCnName("departmentcode") %>: 
 				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getDepartmentid())%></td> 
+				<td><%=StringUtil.getNotEmptyStr(domainInstance.getDepartmentcode())%></td> 
 			</tr> 
 			<tr> 
 				<td> 
 					<%=domainInstance.getPropertyCnName("departmentname") %>: 
 				</td> 
 				<td><%=StringUtil.getNotEmptyStr(domainInstance.getDepartmentname())%></td> 
-			</tr> 
-			<tr> 
-				<td> 
-					<%=domainInstance.getPropertyCnName("city") %>: 
-				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getCity())%></td> 
-			</tr> 
-			<tr> 
-				<td> 
-					<%=domainInstance.getPropertyCnName("districtname") %>: 
-				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getDistrictname())%></td> 
 			</tr> 
 			<tr> 
 				<td> 

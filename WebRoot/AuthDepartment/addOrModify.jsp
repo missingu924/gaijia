@@ -26,7 +26,7 @@
 	// 是否是修改 
 	boolean isModify = domainInstance.getKeyValue() > 0; 
 	// 唯一性检查用的字段 
-	String keyCol = "departmentid"; 
+	String keyCol = "departmentcode"; 
 %> 
 <html> 
 	<head> 
@@ -44,8 +44,9 @@
 		{	 
 				// 做必要的检查 
 		if(!checkNull("id","<%=domainInstance.getPropertyCnName("id")%>")) return false; 
-		if(!checkNull("departmentid","<%=domainInstance.getPropertyCnName("departmentid")%>")) return false; 
+		if(!checkNull("departmentcode","<%=domainInstance.getPropertyCnName("departmentcode")%>")) return false; 
 		if(!checkNull("departmentname","<%=domainInstance.getPropertyCnName("departmentname")%>")) return false; 
+		if(!checkNull("districtname","<%=domainInstance.getPropertyCnName("districtname")%>")) return false; 
 					 
 			// 修改 
 			if("true"=="<%=isModify%>") 
@@ -98,10 +99,10 @@
 				<input type="hidden" id="<%=domainInstance.findKeyColumnName()%>" name="<%=domainInstance.findKeyColumnName()%>" value="<%=domainInstance.getKeyValue()%>"> 
 				<tr> 
 					<td> 
-						<%=domainInstance.getPropertyCnName("departmentid") %>: 
+						<%=domainInstance.getPropertyCnName("departmentcode") %>: 
 					</td> 
 					<td> 
-						<input name="departmentid" type="text" id="departmentid" value="<%=StringUtil.getNotEmptyStr(domainInstance.getDepartmentid(),"")%>" size="20"  <%=isModify?"readOnly":""%>> 
+						<input name="departmentcode" type="text" id="departmentcode" value="<%=StringUtil.getNotEmptyStr(domainInstance.getDepartmentcode(),"")%>" size="20"  <%=isModify?"readOnly":""%>> 
 						<font color="red">*</font> 
 						<font color="red"><%=isModify?"(不可修改)":"(不能重复)"%></font> 
 					</td> 
@@ -117,26 +118,11 @@
 				</tr> 
 				<tr> 
 					<td> 
-						<%=domainInstance.getPropertyCnName("city") %>: 
-					</td> 
-					<td> 
-						<input name="city" type="text" id="city" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCity(),"")%>" size="20"  > 
-					</td> 
-				</tr> 
-				<tr> 
-					<td> 
-						<%=domainInstance.getPropertyCnName("districtname") %>: 
-					</td> 
-					<td> 
-						<input name="districtname" type="text" id="districtname" value="<%=StringUtil.getNotEmptyStr(domainInstance.getDistrictname(),"")%>" size="20"  > 
-					</td> 
-				</tr> 
-				<tr> 
-					<td> 
 						<%=domainInstance.getPropertyCnName("commentinfo") %>: 
 					</td> 
 					<td> 
 						<input name="commentinfo" type="text" id="commentinfo" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCommentinfo(),"")%>" size="20"  > 
+						
 					</td> 
 				</tr> 
 			</table> 

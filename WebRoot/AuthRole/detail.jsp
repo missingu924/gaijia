@@ -37,9 +37,15 @@
 		<table width="600" align="center" class="detail_table detail_table-bordered detail_table-striped"> 
 			<tr> 
 				<td> 
-					<%=domainInstance.getPropertyCnName("roleid") %>: 
+					<%=domainInstance.getPropertyCnName("id") %>: 
 				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getRoleid())%></td> 
+				<td><%=StringUtil.getNotEmptyStr(domainInstance.getId())%></td> 
+			</tr> 
+			<tr> 
+				<td> 
+					<%=domainInstance.getPropertyCnName("rolecode") %>: 
+				</td> 
+				<td><%=StringUtil.getNotEmptyStr(domainInstance.getRolecode())%></td> 
 			</tr> 
 			<tr> 
 				<td> 

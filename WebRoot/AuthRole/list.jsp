@@ -10,7 +10,7 @@
 <!-- 基本信息 --> 
 <% 
 	// 当前上下文路径 
-	String contextPath = request.getContextPath(); 
+	String contextPath = request.getContextPath();
  
 	// 该功能对象实例 
 	AuthRoleObj domainInstance = (AuthRoleObj) request.getAttribute("domainInstance"); 
@@ -34,6 +34,9 @@
 			<table class="search_table" align="center" width="98%"> 
 				<tr> 
 					<td align="left"> 
+						<%=domainInstance.getPropertyCnName("rolecode") %> 
+						<input name="rolecode" type="text" id="rolecode" value="<%=StringUtil.getNotEmptyStr(domainInstance.getRolecode())%>" size="20" > 
+						&nbsp;  
 						<%=domainInstance.getPropertyCnName("rolename") %> 
 						<input name="rolename" type="text" id="rolename" value="<%=StringUtil.getNotEmptyStr(domainInstance.getRolename())%>" size="20" > 
 						&nbsp;  
@@ -66,7 +69,8 @@
 			<table class="table table-bordered table-striped" align="center" width="98%"> 
 				<thead> 
 					<tr> 
-						<th><%=domainInstance.getPropertyCnName("roleid") %></th> 
+						<th><%=domainInstance.getPropertyCnName("id") %></th> 
+						<th><%=domainInstance.getPropertyCnName("rolecode") %></th> 
 						<th><%=domainInstance.getPropertyCnName("rolename") %></th> 
 						<th><%=domainInstance.getPropertyCnName("rolediscription") %></th> 
 						<th>操作</th> 
@@ -81,12 +85,13 @@
 					<td> 
 						<a href="#" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=detail4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')"> <%=StringUtil.getNotEmptyStr(o.getKeyValue())%> </a> 
 					</td> 
+					<td><%=StringUtil.getNotEmptyStr(o.getRolecode())%></td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getRolename())%></td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getRolediscription())%></td> 
-					<td align="left" style="cursor: pointer"> 
-						<input type="button" class="button button_modify" title="修改" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')" /> 
+					<td width="80" style="text-align:center"> 
+						<input type="button" class="button button_modify" value="" title="修改" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')" /> 
 						&nbsp; 
-						<input type="button" class="button button_delete" title="删除" 
+						<input type="button" class="button button_delete" value="" title="删除" 
 							onClick="javascript: 
 								$('#pageForm').attr('action','<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=o.findKeyColumnName()%>_4del=<%=o.getKeyValue()%>'); 
 								$('#pageForm').submit(); 

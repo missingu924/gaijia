@@ -71,6 +71,7 @@ public class DictionaryServlet extends AbstractBaseServletTemplate
 
 		request.setAttribute("dictItems", dictItems);
 		request.setAttribute("multiSelect", request.getParameter("multiSelect"));
+		request.setAttribute("selectedKeys", new String((request.getParameter("selectedKeys") + "").getBytes("iso-8859-1"), "utf-8"));
 
 		request.setAttribute(DOMAIN_INSTANCE, domainInstance);
 

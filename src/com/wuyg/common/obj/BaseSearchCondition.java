@@ -1,22 +1,22 @@
 package com.wuyg.common.obj;
 
-import com.hz.auth.obj.AuthUser;
 import com.hz.util.SystemConstant;
+import com.wuyg.auth.obj.AuthUserObj;
 
 public abstract class BaseSearchCondition
 {
 	private Object domainObj;// 业务对象
 
-	private AuthUser user;// 用户登录账号
+	private AuthUserObj user;// 用户登录账号
 	private int pageNo = 1;
 	private int pageCount = SystemConstant.PAGE_ROWS;
 
-	public AuthUser getUser()
+	public AuthUserObj getUser()
 	{
 		return user;
 	}
 
-	public void setUser(AuthUser user)
+	public void setUser(AuthUserObj user)
 	{
 		this.user = user;
 	}

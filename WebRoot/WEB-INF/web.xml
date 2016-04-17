@@ -5,7 +5,7 @@
 	<!-- 权限过滤器 -->
 	<filter>
 		<filter-name>AuthFilter</filter-name>
-		<filter-class>com.hz.auth.AuthFilter</filter-class>
+		<filter-class>com.wuyg.auth.AuthFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>AuthFilter</filter-name>
@@ -14,12 +14,61 @@
 
 	<!-- 权限servlet -->
 	<servlet>
-		<servlet-name>AuthServlet</servlet-name>
-		<servlet-class>com.hz.auth.AuthServlet</servlet-class>
+		<servlet-name>AuthDepartmentServlet</servlet-name>
+		<servlet-class>com.wuyg.auth.AuthDepartmentServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>AuthServlet</servlet-name>
-		<url-pattern>/Auth/Servlet</url-pattern>
+		<servlet-name>AuthDepartmentServlet</servlet-name>
+		<url-pattern>/AuthDepartment/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AuthRoleServlet</servlet-name>
+		<servlet-class>com.wuyg.auth.AuthRoleServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthRoleServlet</servlet-name>
+		<url-pattern>/AuthRole/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AuthUserServlet</servlet-name>
+		<servlet-class>com.wuyg.auth.AuthUserServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthUserServlet</servlet-name>
+		<url-pattern>/AuthUser/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AuthFunctionServlet</servlet-name>
+		<servlet-class>com.wuyg.auth.AuthFunctionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthFunctionServlet</servlet-name>
+		<url-pattern>/AuthFunction/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AuthLogLoginServlet</servlet-name>
+		<servlet-class>com.wuyg.auth.AuthLogLoginServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AuthOfficeServlet</servlet-name>
+		<servlet-class>com.wuyg.auth.AuthOfficeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthOfficeServlet</servlet-name>
+		<url-pattern>/AuthOffice/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AuthUserRoleServlet</servlet-name>
+		<servlet-class>com.wuyg.auth.AuthUserRoleServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthUserRoleServlet</servlet-name>
+		<url-pattern>/AuthUserRole/Servlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>AuthLogLoginServlet</servlet-name>
+		<url-pattern>/AuthLogLogin/Servlet</url-pattern>
 	</servlet-mapping>
 	<!-- 字典servlet -->
 	<servlet>
@@ -117,7 +166,6 @@
 		<servlet-name>SoSomainServlet</servlet-name>
 		<url-pattern>/SoSomain/Servlet</url-pattern>
 	</servlet-mapping>
-
 	<servlet>
 		<servlet-name>DispatchlistServlet</servlet-name>
 		<servlet-class>com.u8.DispatchlistServlet</servlet-class>
@@ -150,30 +198,8 @@
 		<servlet-name>DictionaryServlet</servlet-name>
 		<url-pattern>/Dictionary/Servlet</url-pattern>
 	</servlet-mapping>
-	<servlet>
-		<servlet-name>AuthDepartmentServlet</servlet-name>
-		<servlet-class>com.wuyg.auth.AuthDepartmentServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AuthDepartmentServlet</servlet-name>
-		<url-pattern>/AuthDepartment/Servlet</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>AuthRoleServlet</servlet-name>
-		<servlet-class>com.wuyg.auth.AuthRoleServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AuthRoleServlet</servlet-name>
-		<url-pattern>/AuthRole/Servlet</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>AuthUserServlet</servlet-name>
-		<servlet-class>com.wuyg.auth.AuthUserServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AuthUserServlet</servlet-name>
-		<url-pattern>/AuthUser/Servlet</url-pattern>
-	</servlet-mapping>
+	
+	
 	<servlet>
 		<servlet-name>VDispatchlistsServlet</servlet-name>
 		<servlet-class>com.u8.VDispatchlistsServlet</servlet-class>

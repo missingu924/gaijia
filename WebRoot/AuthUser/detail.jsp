@@ -25,16 +25,16 @@
 	</head> 
 	<body> 
 		<!-- 表格标题 --> 
-		<table width="600" align="center" class="title_table"> 
+		<table width="700" align="center" class="title_table"> 
 			<tr> 
 				<td> 
-					<img src="../images/svg/heavy/green/user.png" width="18" height="18" align="absmiddle"> 
+					<img src="../images/svg/heavy/green/list.png" width="18" height="18" align="absmiddle"> 
 					&nbsp;&nbsp;<%=domainInstance.getCnName()%>信息 
 				</td> 
 			</tr> 
 		</table> 
 		<!-- 详细信息 --> 
-		<table width="600" align="center" class="detail_table detail_table-bordered detail_table-striped"> 
+		<table width="700" align="center" class="detail_table detail_table-bordered detail_table-striped"> 
 			<tr> 
 				<td> 
 					<%=domainInstance.getPropertyCnName("id") %>: 
@@ -49,21 +49,9 @@
 			</tr> 
 			<tr> 
 				<td> 
-					<%=domainInstance.getPropertyCnName("password") %>: 
-				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getPassword())%></td> 
-			</tr> 
-			<tr> 
-				<td> 
 					<%=domainInstance.getPropertyCnName("name") %>: 
 				</td> 
 				<td><%=StringUtil.getNotEmptyStr(domainInstance.getName())%></td> 
-			</tr> 
-			<tr> 
-				<td> 
-					<%=domainInstance.getPropertyCnName("telephone") %>: 
-				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getTelephone())%></td> 
 			</tr> 
 			<tr> 
 				<td> 
@@ -73,21 +61,9 @@
 			</tr> 
 			<tr> 
 				<td> 
-					<%=domainInstance.getPropertyCnName("province") %>: 
+					<%=domainInstance.getPropertyCnName("telephone") %>: 
 				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getProvince())%></td> 
-			</tr> 
-			<tr> 
-				<td> 
-					<%=domainInstance.getPropertyCnName("city") %>: 
-				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getCity())%></td> 
-			</tr> 
-			<tr> 
-				<td> 
-					<%=domainInstance.getPropertyCnName("district") %>: 
-				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getDistrict())%></td> 
+				<td><%=StringUtil.getNotEmptyStr(domainInstance.getTelephone())%></td> 
 			</tr> 
 			<tr> 
 				<td> 
@@ -97,15 +73,9 @@
 			</tr> 
 			<tr> 
 				<td> 
-					<%=domainInstance.getPropertyCnName("departmentname") %>: 
-				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getDepartmentname())%></td> 
-			</tr> 
-			<tr> 
-				<td> 
 					<%=domainInstance.getPropertyCnName("office") %>: 
 				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getOffice())%></td> 
+				<td><%=DictionaryUtil.getDictValueByDictKey("职务字典",domainInstance.getOffice())%></td> 
 			</tr> 
 			<tr> 
 				<td> 
@@ -114,7 +84,9 @@
 				<td><%=DictionaryUtil.getDictValueByDictKey("角色字典",domainInstance.getRolelevel())%></td> 
 			</tr> 
 		</table> 
-		 
+		
+		<!-- 角色信息 --> 
+		<jsp:include page="../AuthRole/list4parent.jsp" /> 
 		<!-- 工具栏 --> 
 		<jsp:include page="../ToolBar/detail_toolbar.jsp"/> 
 	</body> 

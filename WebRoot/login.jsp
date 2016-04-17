@@ -69,7 +69,7 @@
 	<script src="js/utils.js"></script>
 	<body>
 		<div style='display: <%=(!licenceSucc) ? "none" : ""%>'>
-			<form id="loginForm" name="loginForm" method="post" action="Auth/Servlet?method=login">
+			<form id="loginForm" name="loginForm" method="post" action="AuthUser/Servlet?method=login">
 				<table width="100%" border="0" cellpadding="0" cellspacing="0">
 					<tr>
 						<td align="center" height="100"><font color="red"><%=info%></font></td>

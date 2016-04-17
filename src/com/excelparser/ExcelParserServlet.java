@@ -148,7 +148,7 @@ public class ExcelParserServlet extends AbstractBaseServletTemplate
 			paramMap.put("response", response);
 
 			excelDataList = ExcelParser.parse(saveFile, excelParserConfig, paramMap);
-			logger.info("Excel解析出的数据共" + excelDataList.size() + "条:" + excelDataList);
+			logger.info("Excel解析出的数据共" + excelDataList.size() + "条:");
 
 			// 3、======数据比对（用唯一标识字段比较excel中的数据与数据库中的数据）
 
@@ -160,7 +160,7 @@ public class ExcelParserServlet extends AbstractBaseServletTemplate
 			IBaseDAO dao = new DefaultBaseDAO(javaBeanClass);
 			List dbSearchedDataList = dao.searchByClause(javaBeanClass, inDbSql.toString(), null, 0, Integer.MAX_VALUE);
 
-			logger.info("需更新数据共" + dbSearchedDataList.size() + "条:" + dbSearchedDataList);
+			logger.info("需更新数据共" + dbSearchedDataList.size() + "条:");
 
 			// 比对数据情况:新增 或 更新
 			for (int i = 0; i < excelDataList.size(); i++)
@@ -188,7 +188,7 @@ public class ExcelParserServlet extends AbstractBaseServletTemplate
 				}
 			}
 
-			logger.info("新增数据共" + justInExcelDataList.size() + "条:" + justInExcelDataList);
+			logger.info("新增数据共" + justInExcelDataList.size() + "条:");
 
 			request.getSession().setAttribute("excelDataList", excelDataList);
 			request.getSession().setAttribute("inDbDataList", inDbDataList);

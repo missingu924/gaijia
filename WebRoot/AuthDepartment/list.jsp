@@ -34,8 +34,8 @@
 			<table class="search_table" align="center" width="98%"> 
 				<tr> 
 					<td align="left"> 
-						<%=domainInstance.getPropertyCnName("departmentid") %> 
-						<input name="departmentid" type="text" id="departmentid" value="<%=StringUtil.getNotEmptyStr(domainInstance.getDepartmentid())%>" size="20" > 
+						<%=domainInstance.getPropertyCnName("departmentcode") %> 
+						<input name="departmentcode" type="text" id="departmentcode" value="<%=StringUtil.getNotEmptyStr(domainInstance.getDepartmentcode())%>" size="20" > 
 						&nbsp;  
 						<%=domainInstance.getPropertyCnName("departmentname") %> 
 						<input name="departmentname" type="text" id="departmentname" value="<%=StringUtil.getNotEmptyStr(domainInstance.getDepartmentname())%>" size="20" > 
@@ -70,10 +70,8 @@
 				<thead> 
 					<tr> 
 						<th><%=domainInstance.getPropertyCnName("id") %></th> 
-						<th><%=domainInstance.getPropertyCnName("departmentid") %></th> 
+						<th><%=domainInstance.getPropertyCnName("departmentcode") %></th> 
 						<th><%=domainInstance.getPropertyCnName("departmentname") %></th> 
-						<th><%=domainInstance.getPropertyCnName("city") %></th> 
-						<th><%=domainInstance.getPropertyCnName("districtname") %></th> 
 						<th><%=domainInstance.getPropertyCnName("commentinfo") %></th> 
 						<th>操作</th> 
 					</tr> 
@@ -87,12 +85,10 @@
 					<td> 
 						<a href="#" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=detail4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')"> <%=StringUtil.getNotEmptyStr(o.getKeyValue())%> </a> 
 					</td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getDepartmentid())%></td> 
+					<td><%=StringUtil.getNotEmptyStr(o.getDepartmentcode())%></td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getDepartmentname())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCity())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getDistrictname())%></td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getCommentinfo())%></td> 
-					<td align="left" style="cursor: pointer"> 
+					<td width="80" style="text-align:center"> 
 						<input type="button" class="button button_modify" title="修改" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')" /> 
 						&nbsp; 
 						<input type="button" class="button button_delete" title="删除" 

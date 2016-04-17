@@ -36,15 +36,18 @@
 					<td align="left"> 
 						<%=domainInstance.getPropertyCnName("account") %> 
 						<input name="account" type="text" id="account" value="<%=StringUtil.getNotEmptyStr(domainInstance.getAccount())%>" size="20" > 
-						&nbsp;  
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<%=domainInstance.getPropertyCnName("name") %> 
 						<input name="name" type="text" id="name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getName())%>" size="20" > 
-						&nbsp;  
+						&nbsp; <br>
 						<%=domainInstance.getPropertyCnName("departmentid") %> 
-						<%=DictionaryUtil.getSelectHtml("部门字典", "departmentid", StringUtil.getNotEmptyStr(domainInstance.getDepartmentid(), ""))%> 
+						<%=DictionaryUtil.getInputHtml("部门字典", "departmentid", StringUtil.getNotEmptyStr(domainInstance.getDepartmentid(), ""))%> 
+						&nbsp;  
+						<%=domainInstance.getPropertyCnName("office") %> 
+						<%=DictionaryUtil.getInputHtml("职务字典", "office", StringUtil.getNotEmptyStr(domainInstance.getOffice(), ""))%> 
 						&nbsp;  
 						<%=domainInstance.getPropertyCnName("rolelevel") %> 
-						<%=DictionaryUtil.getSelectHtml("角色字典", "rolelevel", StringUtil.getNotEmptyStr(domainInstance.getRolelevel(), ""))%> 
+						<%=DictionaryUtil.getInputHtml("角色字典", "rolelevel", StringUtil.getNotEmptyStr(domainInstance.getRolelevel(), ""))%> 
 						&nbsp;  
 						<input name="searchButton" type="button" class="button button_search" value="查询" onClick="toPage(1)"> 
 					</td> 
@@ -77,15 +80,10 @@
 					<tr> 
 						<th><%=domainInstance.getPropertyCnName("id") %></th> 
 						<th><%=domainInstance.getPropertyCnName("account") %></th> 
-						<th><%=domainInstance.getPropertyCnName("password") %></th> 
 						<th><%=domainInstance.getPropertyCnName("name") %></th> 
-						<th><%=domainInstance.getPropertyCnName("telephone") %></th> 
 						<th><%=domainInstance.getPropertyCnName("sex") %></th> 
-						<th><%=domainInstance.getPropertyCnName("province") %></th> 
-						<th><%=domainInstance.getPropertyCnName("city") %></th> 
-						<th><%=domainInstance.getPropertyCnName("district") %></th> 
+						<th><%=domainInstance.getPropertyCnName("telephone") %></th> 
 						<th><%=domainInstance.getPropertyCnName("departmentid") %></th> 
-						<th><%=domainInstance.getPropertyCnName("departmentname") %></th> 
 						<th><%=domainInstance.getPropertyCnName("office") %></th> 
 						<th><%=domainInstance.getPropertyCnName("rolelevel") %></th> 
 						<th>操作</th> 
@@ -101,23 +99,18 @@
 						<a href="#" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=detail4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')"> <%=StringUtil.getNotEmptyStr(o.getKeyValue())%> </a> 
 					</td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getAccount())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getPassword())%></td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getName())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getTelephone())%></td> 
 					<td><%=DictionaryUtil.getDictValueByDictKey("性别字典",o.getSex())%></td>  
-					<td><%=StringUtil.getNotEmptyStr(o.getProvince())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCity())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getDistrict())%></td> 
+					<td><%=StringUtil.getNotEmptyStr(o.getTelephone())%></td> 
 					<td><%=DictionaryUtil.getDictValueByDictKey("部门字典",o.getDepartmentid())%></td>  
-					<td><%=StringUtil.getNotEmptyStr(o.getDepartmentname())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getOffice())%></td> 
+					<td><%=DictionaryUtil.getDictValueByDictKey("职务字典",o.getOffice())%></td>  
 					<td><%=DictionaryUtil.getDictValueByDictKey("角色字典",o.getRolelevel())%></td>  
-					<td align="left" style="cursor: pointer"> 
+					<td width="80" style="text-align:center"> 
 						<input type="button" class="button button_modify" title="修改" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')" /> 
 						&nbsp; 
 						<input type="button" class="button button_delete" title="删除" 
 							onClick="javascript: 
-								$('#pageForm').attr('action','<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=o.findKeyColumnName()%>_4del=<%=o.getKeyValue()%>'); 
+								$('#pageForm').attr('action','<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&account_4del=<%=o.getAccount() %>&<%=o.findKeyColumnName()%>_4del=<%=o.getKeyValue()%>'); 
 								$('#pageForm').submit(); 
 								" /> 
 					</td> 

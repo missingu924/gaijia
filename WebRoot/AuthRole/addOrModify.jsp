@@ -26,7 +26,7 @@
 	// 是否是修改 
 	boolean isModify = domainInstance.getKeyValue() > 0; 
 	// 唯一性检查用的字段 
-	String keyCol = "rolename"; 
+	String keyCol = "rolecode"; 
 %> 
 <html> 
 	<head> 
@@ -43,7 +43,8 @@
 		function addOrModify() 
 		{	 
 				// 做必要的检查 
-		if(!checkNull("roleid","<%=domainInstance.getPropertyCnName("roleid")%>")) return false; 
+		if(!checkNull("id","<%=domainInstance.getPropertyCnName("id")%>")) return false; 
+		if(!checkNull("rolecode","<%=domainInstance.getPropertyCnName("rolecode")%>")) return false; 
 		if(!checkNull("rolename","<%=domainInstance.getPropertyCnName("rolename")%>")) return false; 
 					 
 			// 修改 
@@ -97,12 +98,21 @@
 				<input type="hidden" id="<%=domainInstance.findKeyColumnName()%>" name="<%=domainInstance.findKeyColumnName()%>" value="<%=domainInstance.getKeyValue()%>"> 
 				<tr> 
 					<td> 
+						<%=domainInstance.getPropertyCnName("rolecode") %>: 
+					</td> 
+					<td> 
+						<input name="rolecode" type="text" id="rolecode" value="<%=StringUtil.getNotEmptyStr(domainInstance.getRolecode(),"")%>" size="20"  <%=isModify?"readOnly":""%>> 
+						<font color="red">*</font> 
+						<font color="red"><%=isModify?"(不可修改)":"(不能重复)"%></font> 
+					</td> 
+				</tr> 
+				<tr> 
+					<td> 
 						<%=domainInstance.getPropertyCnName("rolename") %>: 
 					</td> 
 					<td> 
-						<input name="rolename" type="text" id="rolename" value="<%=StringUtil.getNotEmptyStr(domainInstance.getRolename(),"")%>" size="20"  <%=isModify?"readOnly":""%>> 
+						<input name="rolename" type="text" id="rolename" value="<%=StringUtil.getNotEmptyStr(domainInstance.getRolename(),"")%>" size="20"  > 
 						<font color="red">*</font> 
-						<font color="red"><%=isModify?"(不可修改)":"(不能重复)"%></font> 
 					</td> 
 				</tr> 
 				<tr> 

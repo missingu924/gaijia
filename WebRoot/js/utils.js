@@ -260,7 +260,7 @@ function checkNullByLabel(label) {
 	 */
 	 function selectFromDictionary(dictName,keyField,valueField,parentDictName,parentDictKey)
  	{
- 		var dictUrl = 	'../Dictionary/Servlet?method=listItems4select&isFromUrl=true&multiSelect=true&dictname='+encodeURI(dictName);
+ 		var dictUrl = 	'../Dictionary/Servlet?method=listItems4select&isFromUrl=true&multiSelect=false&dictname='+encodeURI(dictName);
  		if(parentDictName)
  		{
 			dictUrl+='&parentDictName='+encodeURI(parentDictName);
@@ -274,11 +274,58 @@ function checkNullByLabel(label) {
 			'dialogHeight:600px;dialogWidth:500px;resizable:yes;maximize:yes'
 			);
 
-			// 返回的格式为 id1,id2,id3,id4;name1,name2,name3,name4
+			// 返回的格式为 key=value
 			if (returnValue != null) {
-				var valueArray = returnValue.split(';');
+				var valueArray = returnValue.split('=');
 				$("#"+keyField).val(valueArray[0]);
 				$("#"+valueField).val(valueArray[1]);
+			}
+ 	}
+ 	
+ 	/**
+ 	 * 从字典中选择并在指定table中添加一行
+ 	 * 
+ 	 * @param {} dictName 字典名
+ 	 * @param {} tableId 表格id
+ 	 * @param {} 存储key的input字段id 
+ 	 */
+ 	 function createRowFromDictionary(dictName,tableId,keyField)
+ 	{
+ 		var selectedKeys = "";
+ 		$("[name='"+keyField+"']").each(function()
+ 		{
+ 				selectedKeys+=$(this).val()+";"
+ 		});
+ 		
+ 		var dictUrl = 	'../Dictionary/Servlet?method=listItems4select&isFromUrl=true&multiSelect=true&dictname='+encodeURI(dictName)+'&selectedKeys='+encodeURI(selectedKeys);
+			
+ 		var returnValue = window.showModalDialog(
+			dictUrl,
+			this,
+			'dialogHeight:600px;dialogWidth:500px;resizable:yes;maximize:yes'
+			);
+
+			// 返回的格式为 key1=value1;key2=value2
+			if (returnValue != null) {
+				var valueArray = returnValue.split(';');
+		
+				for(i=0;i<valueArray.length;i++)
+				{
+					var keyValue = valueArray[i].split('=');
+					var key = keyValue[0];
+					var value = keyValue[1];
+					
+					var trHtml ="<tr>";
+					trHtml+="	<td>"+key+"</td>";
+					trHtml+="	<td>"+value+"</td>";
+					trHtml+="	<td> ";
+					trHtml+="		<input type=\"hidden\" name=\""+keyField+"\" value=\""+key+"\">";
+					trHtml+="		<input type=\"button\" class=\"button button_delete\" title=\"删除\" onClick=\"$(this).parents('tr').remove();\" /> ";
+					trHtml+="	</td>";
+					trHtml+="</tr>";
+					
+					$("#"+tableId).append(trHtml);
+				}
 			}
  	}
 

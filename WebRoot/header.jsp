@@ -1,7 +1,8 @@
 <%@ page contentType="text/html; charset=gb2312" language="java" import="java.sql.*" errorPage=""%>
-<%@page import="com.hz.auth.obj.AuthUser"%>
 <%@page import="com.hz.util.SystemConstant"%>
 <%@page import="com.wuyg.common.licence.LicenceUtil"%>
+<%@page import="com.wuyg.common.util.StringUtil"%>
+<%@page import="com.wuyg.auth.obj.AuthUserObj"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -33,7 +34,7 @@ a {
 		<script type="text/javascript" src="js/utils.js"></script>
 	</head>
 	<%
-		AuthUser user = (AuthUser) request.getSession().getAttribute(SystemConstant.AUTH_USER_INFO);
+		AuthUserObj user = (AuthUserObj) request.getSession().getAttribute(SystemConstant.AUTH_USER_INFO);
 	%>
 	<body>
 		<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
@@ -48,7 +49,7 @@ a {
 						<tr>
 							<td align="center"></td>
 							<td align="right">
-								<span class="STYLE2"><%=user.getName() + "</br>" + user.getDepartmentName()%></span>
+								<span class="STYLE2"><%=user.getName() %></span>
 							</td>
 							<td width="20" align="right"></td>
 							<td width="1" align="right" bgcolor="#999999"></td>
@@ -76,7 +77,7 @@ a {
 		<script>
 	function logout()
 	{
-		parent.location.href="Auth/Servlet?method=logout";
+		parent.location.href="AuthUser/Servlet?method=logout";
 	}
 	</script>
 	</body>
