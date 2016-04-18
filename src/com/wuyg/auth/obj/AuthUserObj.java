@@ -84,7 +84,7 @@ public class AuthUserObj extends BaseDbObj
 		pros.put("telephone", "电话");
 		// pros.put("province", "province");
 		// pros.put("city", "city");
-		// pros.put("district", "district");
+		pros.put("district", "对应U8职员");
 		pros.put("departmentid", "部门");
 		// pros.put("departmentname", "departmentname");
 		pros.put("office", "职务");
@@ -255,6 +255,10 @@ public class AuthUserObj extends BaseDbObj
 	public boolean hasRole(String roleName)
 	{
 		if (StringUtil.isEmpty(roleName))
+		{
+			return true;
+		}
+		if (roleName.equalsIgnoreCase(rolelevel))
 		{
 			return true;
 		}

@@ -6,7 +6,9 @@
 <%@page import="com.wuyg.common.util.StringUtil"%> 
 <%@page import="com.wuyg.common.obj.PaginationObj"%> 
 <%@page import="com.wuyg.dictionary.DictionaryUtil"%> 
-<%@page import="com.u8.obj.VDispatchlistsObj"%> 
+<%@page import="com.u8.obj.VDispatchlistsObj"%>
+<%@page import="com.wuyg.auth.obj.AuthUserObj"%>
+<%@page import="com.hz.util.SystemConstant"%> 
 <!-- 基本信息 --> 
 <% 
 	// 当前上下文路径 
@@ -15,6 +17,9 @@
 	VDispatchlistsObj domainInstance = (VDispatchlistsObj) request.getAttribute("domainInstance"); 
 	// 该功能路径 
 	String basePath = domainInstance.getBasePath(); 
+	// 是否管理员
+	AuthUserObj user = (AuthUserObj) request.getSession().getAttribute(SystemConstant.AUTH_USER_INFO);
+	boolean isAdmin = user.hasRole(SystemConstant.ROLE_ADMIN);
 %> 
 <html> 
 	<head> 
@@ -49,10 +54,14 @@
 				<tr>
 				  <td align="left">
 				  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				   <%if(isAdmin){ %>
 				  <%=domainInstance.getPropertyCnName("cdepcode") %>&nbsp;
 				  <%=DictionaryUtil.getInputHtml("U8部门字典", "cdepcode", StringUtil.getNotEmptyStr(domainInstance.getCdepcode(), ""))%>
 				  <%=domainInstance.getPropertyCnName("cpersoncode") %>&nbsp;
 				  <%=DictionaryUtil.getInputHtml("U8人员字典", "cpersoncode", StringUtil.getNotEmptyStr(domainInstance.getCpersoncode(), ""),"U8部门字典","cdepcode")%>
+				  <%} else { %>
+				  <input type="hidden" name="cpersoncode" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCpersoncode(), "")%>">
+				  <%} %>
 				  <%=domainInstance.getPropertyCnName("ccuscode") %>&nbsp;
 				  <%=DictionaryUtil.getInputHtml("U8客户字典", "ccuscode", StringUtil.getNotEmptyStr(domainInstance.getCcuscode(), ""),"U8人员字典","cpersoncode")%></td>
 			  </tr> 
@@ -207,7 +216,7 @@
 						<!-- <input name="cancleButton" type="button" class="button button_cancel" title="取消" onClick="javascript:window.close();">
 						&nbsp;
 						 -->
-						<input name="saveButton" type="button" class="button button_save" value="保存" title="保存" onClick="addOrModify()">
+						<input name="saveButton" type="button" class="button button_save" value="确认修改" onClick="addOrModify()">
 					</td>
 				</tr>
 			</table>

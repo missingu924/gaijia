@@ -41,11 +41,8 @@
 						<input name="name" type="text" id="name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getName())%>" size="20" > 
 						&nbsp; <br>
 						<%=domainInstance.getPropertyCnName("departmentid") %> 
-						<%=DictionaryUtil.getInputHtml("部门字典", "departmentid", StringUtil.getNotEmptyStr(domainInstance.getDepartmentid(), ""))%> 
-						&nbsp;  
-						<%=domainInstance.getPropertyCnName("office") %> 
-						<%=DictionaryUtil.getInputHtml("职务字典", "office", StringUtil.getNotEmptyStr(domainInstance.getOffice(), ""))%> 
-						&nbsp;  
+						<%=DictionaryUtil.getInputHtml("U8部门字典", "departmentid", StringUtil.getNotEmptyStr(domainInstance.getDepartmentid(), ""))%> 
+						&nbsp;   
 						<%=domainInstance.getPropertyCnName("rolelevel") %> 
 						<%=DictionaryUtil.getInputHtml("角色字典", "rolelevel", StringUtil.getNotEmptyStr(domainInstance.getRolelevel(), ""))%> 
 						&nbsp;  
@@ -83,9 +80,9 @@
 						<th><%=domainInstance.getPropertyCnName("name") %></th> 
 						<th><%=domainInstance.getPropertyCnName("sex") %></th> 
 						<th><%=domainInstance.getPropertyCnName("telephone") %></th> 
-						<th><%=domainInstance.getPropertyCnName("departmentid") %></th> 
-						<th><%=domainInstance.getPropertyCnName("office") %></th> 
+						<th><%=domainInstance.getPropertyCnName("departmentid") %></th>
 						<th><%=domainInstance.getPropertyCnName("rolelevel") %></th> 
+						<th><%=domainInstance.getPropertyCnName("district") %></th> 
 						<th>操作</th> 
 					</tr> 
 				</thead> 
@@ -102,9 +99,9 @@
 					<td><%=StringUtil.getNotEmptyStr(o.getName())%></td> 
 					<td><%=DictionaryUtil.getDictValueByDictKey("性别字典",o.getSex())%></td>  
 					<td><%=StringUtil.getNotEmptyStr(o.getTelephone())%></td> 
-					<td><%=DictionaryUtil.getDictValueByDictKey("部门字典",o.getDepartmentid())%></td>  
-					<td><%=DictionaryUtil.getDictValueByDictKey("职务字典",o.getOffice())%></td>  
+					<td><%=DictionaryUtil.getDictValueByDictKey("U8部门字典",o.getDepartmentid())%></td> 
 					<td><%=DictionaryUtil.getDictValueByDictKey("角色字典",o.getRolelevel())%></td>  
+					<td><%=DictionaryUtil.getDictValueByDictKey("U8人员字典",o.getDistrict())%></td>
 					<td width="80" style="text-align:center"> 
 						<input type="button" class="button button_modify" title="修改" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')" /> 
 						&nbsp; 

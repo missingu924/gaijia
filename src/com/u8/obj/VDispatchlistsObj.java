@@ -47,7 +47,9 @@ public class VDispatchlistsObj extends BaseDbObj
 	@Override
 	public String findTableName()
 	{
-		return "v_dispatchlists";
+//		return "v_dispatchlists";
+		
+		return "(select  t1.AutoID, t1.DLID, t2.cdlcode, t2.dDate, t2.cDepCode, t2.cPersonCode, t2.cCusCode, t2.cexch_name, t2.iExchRate, t2.iTaxRate, t1.cWhCode, t1.cInvCode, t1.iQuantity, t1.iSettleQuantity, t1.iTaxUnitPrice, t1.iSum, t1.iNatUnitPrice, t1.iNatSum from  dispatchlists t1 left join dispatchlist t2 on t1.DLID=t2.DLID) t";
 	}
 
 	@Override

@@ -64,17 +64,22 @@ function toggleMenuGroup(td,menuGroupId)
 						</tr>
 						-->
 						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/VDispatchlists/Servlet?method=list4modify')">
+							<td class="menu_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/VDispatchlists/Servlet?method=list4modify&ddate_start=<%=TimeUtil.date2str(TimeUtil.getTheFirstDayOfTheMonth(),"yyyy-MM-dd") %>')">
 								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
 								&nbsp;&nbsp;发货单价格修改
 							</td>
 						</tr>
+						<%
+						if (isAdmin)
+						{
+						%>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'System/Servlet?method=preDbAddOrModify')">
 								<img src="images/svg/heavy/green/receipt.png" width="18" height="18" align="middle" />
 								&nbsp;&nbsp;账套管理
 							</td>
 						</tr>
+						<%} %>
 						<!-- 
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/Dispatchlists/Servlet?method=list4this')">
@@ -140,6 +145,7 @@ function toggleMenuGroup(td,menuGroupId)
 								&nbsp;&nbsp;账号管理
 							</td>
 						</tr>
+						<!-- 
 					   	<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/AuthDepartment/Servlet?method=list4this')">
 								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
@@ -172,7 +178,7 @@ function toggleMenuGroup(td,menuGroupId)
 							</td>
 						</tr>
 						
-						<!-- 
+						
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/Dictionary/Servlet?method=list4this')">
 								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />

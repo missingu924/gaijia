@@ -199,4 +199,23 @@ public abstract class BaseDbObj
 
 		return false;
 	}
+
+	/**
+	 * 根据property名字获取property值
+	 * 
+	 * @param propertyName
+	 * @return
+	 */
+	public String getPropertyValue(String propertyName)
+	{
+		try
+		{
+			return BeanUtils.getProperty(this, propertyName);
+		} catch (Exception e)
+		{
+			logger.error(propertyName + " " + e.getMessage(), e);
+		}
+		
+		return null;
+	}
 }

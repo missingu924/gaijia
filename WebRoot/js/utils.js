@@ -65,7 +65,7 @@ function checkAccount(id, name) {
 	if (!checkNull(id, name))
 		return false;
 
-	var accountReg = /^[a-zA-Z][_a-zA-Z0-9]{4,17}$/;
+	var accountReg = /^[a-zA-Z][_a-zA-Z0-9]{3,17}$/;
 	if (!accountReg.test($("#" + id).val())) {
 		alert("账号不符合格式要求");
 		$("#" + id).focus();

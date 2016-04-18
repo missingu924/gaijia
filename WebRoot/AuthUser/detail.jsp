@@ -4,7 +4,8 @@
 <%@page import="java.util.List"%> 
 <%@page import="com.wuyg.common.util.StringUtil"%> 
 <%@page import="com.wuyg.dictionary.DictionaryUtil"%> 
-<%@page import="com.wuyg.auth.obj.AuthUserObj"%> 
+<%@page import="com.wuyg.auth.obj.AuthUserObj"%>
+<%@page import="com.wuyg.auth.obj.AuthRoleObj"%> 
 <% 
 	// 当前上下文路径  
 	String contextPath = request.getContextPath();  
@@ -69,13 +70,7 @@
 				<td> 
 					<%=domainInstance.getPropertyCnName("departmentid") %>: 
 				</td> 
-				<td><%=DictionaryUtil.getDictValueByDictKey("部门字典",domainInstance.getDepartmentid())%></td> 
-			</tr> 
-			<tr> 
-				<td> 
-					<%=domainInstance.getPropertyCnName("office") %>: 
-				</td> 
-				<td><%=DictionaryUtil.getDictValueByDictKey("职务字典",domainInstance.getOffice())%></td> 
+				<td><%=DictionaryUtil.getDictValueByDictKey("U8部门字典",domainInstance.getDepartmentid())%></td> 
 			</tr> 
 			<tr> 
 				<td> 
@@ -83,10 +78,14 @@
 				</td> 
 				<td><%=DictionaryUtil.getDictValueByDictKey("角色字典",domainInstance.getRolelevel())%></td> 
 			</tr> 
+			<tr> 
+				<td> 
+					<%=domainInstance.getPropertyCnName("district") %>: 
+				</td> 
+				<td><%=DictionaryUtil.getDictValueByDictKey("U8人员字典",domainInstance.getDistrict())%></td> 
+			</tr> 
 		</table> 
-		
-		<!-- 角色信息 --> 
-		<jsp:include page="../AuthRole/list4parent.jsp" /> 
+
 		<!-- 工具栏 --> 
 		<jsp:include page="../ToolBar/detail_toolbar.jsp"/> 
 	</body> 

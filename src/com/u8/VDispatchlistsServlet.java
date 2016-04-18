@@ -117,6 +117,12 @@ public class VDispatchlistsServlet extends AbstractBaseServletTemplate
 		{
 			where += " and iquantity!=isettlequantity";
 		}
+		// 业务员只能查自己客户的发货单
+		if (!currentUser.hasRole(SystemConstant.ROLE_ADMIN))
+		{
+			where += " and cpersoncode='"+currentUser.getDistrict()+"'";// AuthUserObj的district字段存放该账号对应的U8系统的personcode
+		}
+		
 
 		List list = getDomainDao().searchByClause(getDomainInstanceClz(), where, domainInstance.findDefaultOrderBy(), 0, 10000);// 最多10000条
 
