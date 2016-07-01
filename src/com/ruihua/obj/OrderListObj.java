@@ -80,7 +80,7 @@ public class OrderListObj extends BaseDbObj
 	}
 
 	@Override
-	public List<String> getUniqueIndexProperties()
+	public List<String> findUniqueIndexProperties()
 	{
 		List<String> l = new ArrayList<String>();
 		l.add("dingdan_bianhao");
@@ -99,7 +99,7 @@ public class OrderListObj extends BaseDbObj
 		return "订单主表";
 	}
 
-	public LinkedHashMap<String, String> getProperties()
+	public LinkedHashMap<String, String> findProperties()
 	{
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 

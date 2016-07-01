@@ -68,9 +68,9 @@
 			</tr> 
 			<tr> 
 				<td> 
-					<%=domainInstance.getPropertyCnName("departmentid") %>: 
+					<%=domainInstance.getPropertyCnName("departmentcode") %>: 
 				</td> 
-				<td><%=DictionaryUtil.getDictValueByDictKey("U8部门字典",domainInstance.getDepartmentid())%></td> 
+				<td><%=DictionaryUtil.getDictValueByDictKey("U8部门字典",domainInstance.getDepartmentcode())%></td> 
 			</tr> 
 			<tr> 
 				<td> 

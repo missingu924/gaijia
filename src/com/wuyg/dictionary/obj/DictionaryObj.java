@@ -48,7 +48,7 @@ public String getCnName()
 {
 	return "字典管理";
 }
-public LinkedHashMap<String, String> getProperties()
+public LinkedHashMap<String, String> findProperties()
 {
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 

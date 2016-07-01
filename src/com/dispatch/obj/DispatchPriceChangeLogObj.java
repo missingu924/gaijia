@@ -70,14 +70,14 @@ public class DispatchPriceChangeLogObj extends BaseDbObj
 	}
 	
 	@Override
-	public List<String> getUniqueIndexProperties()
+	public List<String> findUniqueIndexProperties()
 	{
 		List<String> list=new ArrayList<String>();
 		list.add("autoid");
 		return list;
 	}
 
-	public LinkedHashMap<String, String> getProperties()
+	public LinkedHashMap<String, String> findProperties()
 	{
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 

@@ -70,7 +70,7 @@ public class VDispatchlistsObj extends BaseDbObj
 		return "发货单";
 	}
 
-	public LinkedHashMap<String, String> getProperties()
+	public LinkedHashMap<String, String> findProperties()
 	{
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 

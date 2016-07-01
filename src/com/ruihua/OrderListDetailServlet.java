@@ -10,12 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.hz.config.ConfigReader;
-import com.hz.util.SystemConstant;
 import com.ruihua.obj.OrderListDetailObj;
-import com.ruihua.obj.OrderListObj;
 import com.ruihua.obj.TaobaoProductMapObj;
-import com.u8.obj.CustomerObj;
 import com.u8.obj.SoSodetailsObj;
 import com.u8.obj.SoSomainObj;
 import com.wuyg.common.dao.BaseDbObj;
@@ -27,6 +23,7 @@ import com.wuyg.common.util.ExcelParserUtil;
 import com.wuyg.common.util.MySqlUtil;
 import com.wuyg.common.util.RequestUtil;
 import com.wuyg.common.util.StringUtil;
+import com.wuyg.common.util.SystemConstant;
 import com.wuyg.common.util.TimeUtil;
 import com.wuyg.excelparser.ExcelParser;
 import com.wuyg.excelparser.obj.ExcelParserConfigObj;

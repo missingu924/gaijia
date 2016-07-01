@@ -2,8 +2,8 @@ package com.wuyg.common.dao;
 
 import java.util.List;
 
-import com.hz.util.SystemConstant;
 import com.wuyg.common.obj.PaginationObj;
+import com.wuyg.common.util.SystemConstant;
 
 public class DefaultBaseDAO extends AbstractBaseDAOTemplate
 {
@@ -64,7 +64,7 @@ public class DefaultBaseDAO extends AbstractBaseDAOTemplate
 	@Override
 	public List<String> getUniqueIndexColumns()
 	{
-		return baseDbObject.getUniqueIndexProperties();
+		return baseDbObject.findUniqueIndexProperties();
 	}
 	
 	@Override

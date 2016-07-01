@@ -3,7 +3,7 @@
 <!-- 引入类 -->  
 <%@page import="java.util.List"%> 
 <%@page import="com.wuyg.common.util.StringUtil"%> 
-<%@page import="com.hz.dict.service.DictionaryService"%> 
+<%@page import="com.wuyg.dictionary.DictionaryUtil"%> 
 <%@page import="com.u8.obj.InventoryObj"%> 
 <% 
 	// 当前上下文路径  
@@ -25,7 +25,7 @@
 	</head> 
 	<body> 
 		<!-- 表格标题 --> 
-		<table width="600" align="center" class="title_table"> 
+		<table width="700" align="center" class="title_table"> 
 			<tr> 
 				<td> 
 					<img src="../images/svg/heavy/green/list.png" width="18" height="18" align="absmiddle"> 
@@ -34,7 +34,7 @@
 			</tr> 
 		</table> 
 		<!-- 详细信息 --> 
-		<table width="600" align="center" class="detail_table detail_table-bordered detail_table-striped"> 
+		<table width="700" align="center" class="detail_table detail_table-bordered detail_table-striped"> 
 			<tr> 
 				<td> 
 					<%=domainInstance.getPropertyCnName("cinvcode") %>: 
@@ -43,9 +43,9 @@
 			</tr> 
 			<tr> 
 				<td> 
-					<%=domainInstance.getPropertyCnName("cinvaddcode") %>: 
+					<%=domainInstance.getPropertyCnName("cinvccode") %>: 
 				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getCinvaddcode())%></td> 
+				<td><%=DictionaryUtil.getDictValueByDictKey("U8存货类别字典",domainInstance.getCinvccode())%></td> 
 			</tr> 
 			<tr> 
 				<td> 
@@ -61,15 +61,21 @@
 			</tr> 
 			<tr> 
 				<td> 
-					<%=domainInstance.getPropertyCnName("cinvccode") %>: 
+					<%=domainInstance.getPropertyCnName("cvencode") %>: 
 				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getCinvccode())%></td> 
+				<td><%=DictionaryUtil.getDictValueByDictKey("U8供应商字典",domainInstance.getCvencode())%></td> 
 			</tr> 
 			<tr> 
 				<td> 
-					<%=domainInstance.getPropertyCnName("cvencode") %>: 
+					<%=domainInstance.getPropertyCnName("ccomunitcode") %>: 
 				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getCvencode())%></td> 
+				<td><%=DictionaryUtil.getDictValueByDictKey("U8计量单位字典",domainInstance.getCcomunitcode())%></td> 
+			</tr> 
+			<tr> 
+				<td> 
+					<%=domainInstance.getPropertyCnName("cinvaddcode") %>: 
+				</td> 
+				<td><%=StringUtil.getNotEmptyStr(domainInstance.getCinvaddcode())%></td> 
 			</tr> 
 			<tr> 
 				<td> 
@@ -568,12 +574,6 @@
 					<%=domainInstance.getPropertyCnName("cgroupcode") %>: 
 				</td> 
 				<td><%=StringUtil.getNotEmptyStr(domainInstance.getCgroupcode())%></td> 
-			</tr> 
-			<tr> 
-				<td> 
-					<%=domainInstance.getPropertyCnName("ccomunitcode") %>: 
-				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getCcomunitcode())%></td> 
 			</tr> 
 			<tr> 
 				<td> 
@@ -1528,6 +1528,48 @@
 					<%=domainInstance.getPropertyCnName("btracksalebill") %>: 
 				</td> 
 				<td><%=StringUtil.getNotEmptyStr(domainInstance.getBtracksalebill())%></td> 
+			</tr> 
+			<tr> 
+				<td> 
+					<%=domainInstance.getPropertyCnName("cinvmnemcode") %>: 
+				</td> 
+				<td><%=StringUtil.getNotEmptyStr(domainInstance.getCinvmnemcode())%></td> 
+			</tr> 
+			<tr> 
+				<td> 
+					<%=domainInstance.getPropertyCnName("iplandefault") %>: 
+				</td> 
+				<td><%=StringUtil.getNotEmptyStr(domainInstance.getIplandefault())%></td> 
+			</tr> 
+			<tr> 
+				<td> 
+					<%=domainInstance.getPropertyCnName("ipfbatchqty") %>: 
+				</td> 
+				<td><%=StringUtil.getNotEmptyStr(domainInstance.getIpfbatchqty())%></td> 
+			</tr> 
+			<tr> 
+				<td> 
+					<%=domainInstance.getPropertyCnName("iallocateprintdgt") %>: 
+				</td> 
+				<td><%=StringUtil.getNotEmptyStr(domainInstance.getIallocateprintdgt())%></td> 
+			</tr> 
+			<tr> 
+				<td> 
+					<%=domainInstance.getPropertyCnName("bcheckbatch") %>: 
+				</td> 
+				<td><%=StringUtil.getNotEmptyStr(domainInstance.getBcheckbatch())%></td> 
+			</tr> 
+			<tr> 
+				<td> 
+					<%=domainInstance.getPropertyCnName("bmngoldpart") %>: 
+				</td> 
+				<td><%=StringUtil.getNotEmptyStr(domainInstance.getBmngoldpart())%></td> 
+			</tr> 
+			<tr> 
+				<td> 
+					<%=domainInstance.getPropertyCnName("ioldpartmngrule") %>: 
+				</td> 
+				<td><%=StringUtil.getNotEmptyStr(domainInstance.getIoldpartmngrule())%></td> 
 			</tr> 
 		</table> 
 		 

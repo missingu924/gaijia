@@ -52,13 +52,13 @@ public class AuthFunctionObj extends BaseDbObj
 	}
 
 	@Override
-	public List<String> getUniqueIndexProperties()
+	public List<String> findUniqueIndexProperties()
 	{
 		return Arrays.asList(new String[]
 		{ "functioncode" });
 	}
 
-	public LinkedHashMap<String, String> getProperties()
+	public LinkedHashMap<String, String> findProperties()
 	{
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 

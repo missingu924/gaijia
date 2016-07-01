@@ -5,8 +5,7 @@
 <%@page import="java.util.ArrayList"%> 
 <%@page import="com.wuyg.common.util.StringUtil"%> 
 <%@page import="com.wuyg.common.obj.PaginationObj"%> 
-<%@page import="com.inspur.common.dictionary.util.DictionaryUtil"%> 
-<%@page import="com.hz.dict.service.DictionaryService"%> 
+<%@page import="com.wuyg.dictionary.DictionaryUtil"%> 
 <%@page import="com.u8.obj.InventoryObj"%> 
 <!-- 基本信息 --> 
 <% 
@@ -17,13 +16,24 @@
 	InventoryObj domainInstance = (InventoryObj) request.getAttribute("domainInstance"); 
 	// 该功能路径 
 	String basePath = domainInstance.getBasePath(); 
+ 
+	// 查询结果 
+	PaginationObj pagination = null; 
+	List list = new ArrayList(); 
+ 
+	Object paginationObj = request.getAttribute("domainPagination"); 
+	if (paginationObj != null) 
+	{ 
+		pagination = (PaginationObj) paginationObj; 
+		list = (List) pagination.getDataList(); 
+	} 
 %> 
 <html> 
 	<head> 
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-		<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no" />		<title><%=domainInstance.getCnName() %>列表</title> 
+		<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no" /> 
+		<title><%=domainInstance.getCnName() %>列表</title> 
 		<link href="../css/global.css" rel="stylesheet" type="text/css"> 
-		<link href="../css/table.css" rel="stylesheet" type="text/css"> 
 		<script type="text/javascript" src="../js/jquery-2.0.3.min.js"></script> 
 		<script type="text/javascript" src="../js/utils.js"></script> 
 		<script type="text/javascript" src="../My97DatePicker/WdatePicker.js"></script> 
@@ -38,6 +48,9 @@
 						<%=domainInstance.getPropertyCnName("cinvcode") %> 
 						<input name="cinvcode" type="text" id="cinvcode" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCinvcode())%>" size="20" > 
 						&nbsp;  
+						<%=domainInstance.getPropertyCnName("cinvccode") %> 
+						<%=DictionaryUtil.getInputHtml("U8存货类别字典", "cinvccode", StringUtil.getNotEmptyStr(domainInstance.getCinvccode(), ""))%> 
+						&nbsp;  
 						<%=domainInstance.getPropertyCnName("cinvname") %> 
 						<input name="cinvname" type="text" id="cinvname" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCinvname())%>" size="20" > 
 						&nbsp;  
@@ -46,36 +59,24 @@
 					<td align="right"> 
 						<input name="addButton" type="button" class="button button_add" value="增加" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this')"> 
 						<input name="uploadButton" type="button" class="button button_upload" value="导入" onClick="openBigModalDialog('<%=contextPath%>/ExcelParser/uploadFile.jsp?basedbobj_class=<%=domainInstance.getClass().getCanonicalName()%>')">
+						<%if(list.size()>0){ %> 
+						<input name="deleteAllButton" type="button" class="button button_delete" value="全删" onClick="if(confirm('您确认要删除本次查询出的 <%=list.size() %> 条数据吗?')){$('#pageForm').attr('action','<%=contextPath%>/<%=basePath%>/Servlet?method=deleteAll4this').submit();}"> 
+						<%} %> 
 					</td> 
 				</tr> 
 			</table> 
  
-			<!-- 查询结果 --> 
-			<% 
-				PaginationObj pagination = null; 
-				List list = new ArrayList(); 
- 
-				Object paginationObj = request.getAttribute("domainPagination"); 
-				if (paginationObj != null) 
-				{ 
-					pagination = (PaginationObj) paginationObj; 
-					list = (List) pagination.getDataList(); 
-				} 
-				if (paginationObj == null) 
-				{ 
-					out.print("没有符合条件的数据，请重新设置条件再查询。"); 
-				} else 
-				{ 
-			%> 
 			<table class="table table-bordered table-striped" align="center" width="98%"> 
 				<thead> 
 					<tr> 
 						<th><%=domainInstance.getPropertyCnName("cinvcode") %></th> 
-						<th><%=domainInstance.getPropertyCnName("cinvaddcode") %></th> 
+						<th><%=domainInstance.getPropertyCnName("cinvccode") %></th> 
 						<th><%=domainInstance.getPropertyCnName("cinvname") %></th> 
 						<th><%=domainInstance.getPropertyCnName("cinvstd") %></th> 
-						<th><%=domainInstance.getPropertyCnName("cinvccode") %></th> 
 						<th><%=domainInstance.getPropertyCnName("cvencode") %></th> 
+						<th><%=domainInstance.getPropertyCnName("ccomunitcode") %></th> 
+						<!-- 
+						<th><%=domainInstance.getPropertyCnName("cinvaddcode") %></th> 
 						<th><%=domainInstance.getPropertyCnName("creplaceitem") %></th> 
 						<th><%=domainInstance.getPropertyCnName("cposition") %></th> 
 						<th><%=domainInstance.getPropertyCnName("bsale") %></th> 
@@ -159,7 +160,6 @@
 						<th><%=domainInstance.getPropertyCnName("cinvdefine16") %></th> 
 						<th><%=domainInstance.getPropertyCnName("igrouptype") %></th> 
 						<th><%=domainInstance.getPropertyCnName("cgroupcode") %></th> 
-						<th><%=domainInstance.getPropertyCnName("ccomunitcode") %></th> 
 						<th><%=domainInstance.getPropertyCnName("casscomunitcode") %></th> 
 						<th><%=domainInstance.getPropertyCnName("csacomunitcode") %></th> 
 						<th><%=domainInstance.getPropertyCnName("cpucomunitcode") %></th> 
@@ -319,7 +319,14 @@
 						<th><%=domainInstance.getPropertyCnName("fminsplit") %></th> 
 						<th><%=domainInstance.getPropertyCnName("bspecialorder") %></th> 
 						<th><%=domainInstance.getPropertyCnName("btracksalebill") %></th> 
-						<th>操作</th> 
+						<th><%=domainInstance.getPropertyCnName("cinvmnemcode") %></th> 
+						<th><%=domainInstance.getPropertyCnName("iplandefault") %></th> 
+						<th><%=domainInstance.getPropertyCnName("ipfbatchqty") %></th> 
+						<th><%=domainInstance.getPropertyCnName("iallocateprintdgt") %></th> 
+						<th><%=domainInstance.getPropertyCnName("bcheckbatch") %></th> 
+						<th><%=domainInstance.getPropertyCnName("bmngoldpart") %></th> 
+						<th><%=domainInstance.getPropertyCnName("ioldpartmngrule") %></th> 
+						 -->
 					</tr> 
 				</thead> 
 				<% 
@@ -329,265 +336,13 @@
 				%> 
 				<tr> 
 					<td> 
-						<a href="#" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=detail4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')"> <%=StringUtil.getNotEmptyStr(o.getKeyValue())%> </a> 
+						<a href="#" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=detail4this&cinvcode=<%=o.getCinvccode()%>')"> <%=StringUtil.getNotEmptyStr(o.getCinvcode())%> </a> 
 					</td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvaddcode())%></td> 
+					<td><%=DictionaryUtil.getDictValueByDictKey("U8存货类别字典",o.getCinvccode())%></td>  
 					<td><%=StringUtil.getNotEmptyStr(o.getCinvname())%></td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getCinvstd())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvccode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCvencode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCreplaceitem())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCposition())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBsale())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBpurchase())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBself())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBcomsume())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBproducing())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBservice())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBaccessary())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getItaxrate())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIinvweight())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIvolume())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIinvrcost())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIinvsprice())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIinvscost())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIinvlscost())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIinvncost())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIinvadvance())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIinvbatch())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIsafenum())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getItopsum())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIlowsum())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIoverstock())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvabc())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBinvquality())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBinvbatch())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBinventrust())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBinvoverstock())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getDsdate())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getDedate())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBfree1())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBfree2())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvdefine1())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvdefine2())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvdefine3())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getI_id())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBinvtype())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIinvmpcost())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCquality())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIinvsalecost())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIinvscost1())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIinvscost2())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIinvscost3())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBfree3())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBfree4())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBfree5())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBfree6())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBfree7())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBfree8())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBfree9())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBfree10())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCcreateperson())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCmodifyperson())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getDmodifydate())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFsubscribepoint())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFvagquantity())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCvaluetype())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBfixexch())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFoutexcess())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFinexcess())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getImassdate())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIwarndays())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFexpensesexch())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBtrack())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBserial())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBbarcode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIid())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCbarcode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvdefine4())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvdefine5())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvdefine6())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvdefine7())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvdefine8())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvdefine9())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvdefine10())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvdefine11())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvdefine12())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvdefine13())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvdefine14())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvdefine15())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvdefine16())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIgrouptype())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCgroupcode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCcomunitcode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCasscomunitcode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCsacomunitcode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCpucomunitcode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCstcomunitcode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCcacomunitcode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCfrequency())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIfrequency())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIdays())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getDlastdate())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIwastage())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBsolitude())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCenterprise())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCaddress())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCfile())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getClabel())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCcheckout())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getClicence())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBspecialties())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCdefwarehouse())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIhighprice())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIexpsalerate())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCpricegroup())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCoffergrade())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIofferrate())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCmonth())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIadvancedate())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCcurrencyname())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCproduceaddress())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCproducenation())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCregisterno())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCenterno())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCpackingtype())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCenglishname())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBpropertycheck())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCpreparationtype())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCcommodity())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIrecipebatch())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCnotpatentname())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getPubufts())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBpromotsales())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIplanpolicy())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIropmethod())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIbatchrule())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFbatchincrement())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIassureprovidedays())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIteststyle())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIdtmethod())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFdtrate())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFdtnum())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCdtunit())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIdtstyle())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIqtmethod())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getPictureguid())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBplaninv())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBproxyforeign())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBatomodel())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBcheckitem())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBptomodel())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBequipment())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCproductunit())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getForderuplimit())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCmassunit())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFretailprice())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvdepcode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIalteradvance())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFalterbasenum())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCplanmethod())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBmps())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBrop())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBreplan())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCsrpolicy())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBbillunite())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIsupplyday())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFsupplymulti())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFminsupply())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBcutmantissa())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvpersoncode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIinvtfid())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCengineerfigno())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBintotalcost())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIsupplytype())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBconfigfree1())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBconfigfree2())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBconfigfree3())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBconfigfree4())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBconfigfree5())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBconfigfree6())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBconfigfree7())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBconfigfree8())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBconfigfree9())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBconfigfree10())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIdtlevel())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCdtaql())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBperioddt())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCdtperiod())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIbigmonth())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIbigday())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIsmallmonth())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIsmallday())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBoutinvdt())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBbackinvdt())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIenddtstyle())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBdtwarninv())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFbacktaxrate())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCciqcode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCwgroupcode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCwunit())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFgrossw())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCvgroupcode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCvunit())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFlength())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFwidth())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFheight())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIdtucounter())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIdtdcounter())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIbatchcounter())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCshopunit())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCpurpersoncode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBimportmedicine())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBfirstbusimedicine())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBforeexpland())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvplancode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFconvertrate())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getDreplacedate())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBinvmodel())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBkccutmantissa())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBreceiptbydt())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIimptaxrate())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIexptaxrate())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBexpsale())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIdrawbatch())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBcheckbsatp())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCinvprojectcode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getItestrule())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCrulecode())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBcheckfree1())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBcheckfree2())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBcheckfree3())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBcheckfree4())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBcheckfree5())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBcheckfree6())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBcheckfree7())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBcheckfree8())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBcheckfree9())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBcheckfree10())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBbommain())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBbomsub())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBproductbill())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIcheckatp())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIinvatpid())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIplantfday())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getIoverlapday())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBpiece())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBsrvitem())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBsrvfittings())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFmaxsupply())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getFminsplit())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBspecialorder())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getBtracksalebill())%></td> 
-					<td align="left" style="cursor: pointer"> 
-						<input type="button" class="button button_modify" title="修改" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')" /> 
-						&nbsp; 
-						<input type="button" class="button button_delete" title="删除" 
-							onClick="javascript: 
-								$('#pageForm').attr('action','<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=o.findKeyColumnName()%>_4del=<%=o.getKeyValue()%>'); 
-								$('#pageForm').submit(); 
-								" /> 
-					</td> 
+					<td><%=DictionaryUtil.getDictValueByDictKey("U8供应商字典",o.getCvencode())%></td>  
+					<td><%=DictionaryUtil.getDictValueByDictKey("U8计量单位字典",o.getCcomunitcode())%></td>
 				</tr> 
 				<% 
 					} 
@@ -599,9 +354,6 @@
 				<jsp:param name="basePath" value="<%=basePath%>"/> 
 			</jsp:include> 
  
-			<% 
-				} 
-			%> 
 		</form>  
  
 	</body> 

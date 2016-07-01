@@ -43,12 +43,12 @@ public String getCnName()
 	return "职务";
 }
 @Override
-public List<String> getUniqueIndexProperties()
+public List<String> findUniqueIndexProperties()
 {
 	return Arrays.asList(new String[]
 	{ "officecode" });
 }
-public LinkedHashMap<String, String> getProperties()
+public LinkedHashMap<String, String> findProperties()
 {
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 

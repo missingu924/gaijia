@@ -60,7 +60,7 @@ public class OrderListDetailObj extends BaseDbObj
 		return "订单详情";
 	}
 
-	public LinkedHashMap<String, String> getProperties()
+	public LinkedHashMap<String, String> findProperties()
 	{
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 

@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="gb2312"?>
 <DictConfig version="1.0">
 	<DictConfigList>
+		
+		<!-- 该应用字典 -->
+		<DictConfig dictShowName="采购价格字典" dictName="采购价格字典" dictTable="purcharse_price_main" dictKeyCol="id" dictValueCol="name" dictOrderByCol="id desc" filter="pizhun_status='已批准'"/>
+		
 		<!-- 具体业务字典，根据也许需要添加或修改 -->
 		<DictConfig dbName="U8_DB" dictShowName="U8存货字典" dictName="U8存货字典" dictTable="inventory" dictKeyCol="cinvcode" dictValueCol="cinvname" dictOrderByCol="cinvcode" filter=""/>
+		<DictConfig dbName="U8_DB" dictShowName="U8存货类别字典" dictName="U8存货类别字典" dictTable="inventoryClass" dictKeyCol="cinvccode" dictValueCol="cinvcname" dictOrderByCol="cinvccode" filter=""/>
 		<DictConfig dbName="U8_DB" dictShowName="U8存货规格型号字典" dictName="U8存货规格型号字典" dictTable="inventory" dictKeyCol="cinvcode" dictValueCol="cinvstd" dictOrderByCol="cinvcode" filter=""/>
+		<DictConfig dbName="U8_DB" dictShowName="U8供应商字典" dictName="U8供应商字典" dictTable="vendor" dictKeyCol="cvencode" dictValueCol="cvenname" dictOrderByCol="cvencode" filter=""/>
+		<DictConfig dbName="U8_DB" dictShowName="U8计量单位字典" dictName="U8计量单位字典" dictTable="ComputationUnit" dictKeyCol="ccomunitcode" dictValueCol="ccomunitname" dictOrderByCol="ccomunitcode" filter=""/>
 		<DictConfig dbName="U8_DB" dictShowName="U8部门字典" dictName="U8部门字典" dictTable="department" dictKeyCol="cdepcode" dictValueCol="cdepname" dictOrderByCol="cdepcode" filter="bdepend='1'"/>
 		<DictConfig dbName="U8_DB" dictShowName="U8仓库字典" dictName="U8仓库字典" dictTable="warehouse" dictKeyCol="cwhcode" dictValueCol="cwhname" dictOrderByCol="cwhcode" filter=""/>
 		<DictConfig dbName="U8_DB" dictShowName="U8客户字典" dictName="U8客户字典" dictTable="customer" dictKeyCol="ccuscode" dictValueCol="ccusabbname" dictOrderByCol="ccusabbname" filter=""/>

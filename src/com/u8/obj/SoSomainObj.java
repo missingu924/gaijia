@@ -109,13 +109,13 @@ public String getCnName()
 	return "销售单主表";
 }
 @Override
-public List<String> getUniqueIndexProperties()
+public List<String> findUniqueIndexProperties()
 {
 	List<String> l=new ArrayList<String>();
 	l.add("cdefine1");
 	return l;
 }
-public LinkedHashMap<String, String> getProperties()
+public LinkedHashMap<String, String> findProperties()
 {
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 

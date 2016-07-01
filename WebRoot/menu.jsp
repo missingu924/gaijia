@@ -1,9 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" errorPage=""%>
-<%@page import="com.hz.util.SystemConstant"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="com.wuyg.common.util.TimeUtil"%>
 <%@page import="com.wuyg.common.util.StringUtil"%>
 <%@page import="com.wuyg.auth.obj.AuthUserObj"%>
+<%@page import="com.wuyg.common.util.SystemConstant"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -45,42 +45,32 @@ function toggleMenuGroup(td,menuGroupId)
 	%>
 	<body class="menu_bg">
 		<table width="100%" cellpadding="0" cellspacing="0" border="0">
-
+			
+			<!-- 
 			<tr>
 				<td class="menu_header_expand" onclick="toggleMenuGroup(this,'04')">
-					销售单价格管理
+					发货单价格管理
 				</td>
 			</tr>
 			<tr>
 				<td>
 
 					<table id="menu_group_04" width="100%" cellpadding="0" cellspacing="0" border="0">
-						<!-- 
+						
 						<tr>
 							<td class="menu_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/Dispatchlist/Servlet?method=list4this&ddate_start=<%=TimeUtil.date2str(TimeUtil.getTheFirstDayOfTheMonth(),"yyyy-MM-dd") %>')">
 								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
 								&nbsp;&nbsp;发货单价格修改
 							</td>
 						</tr>
-						-->
+						
 						<tr>
 							<td class="menu_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/VDispatchlists/Servlet?method=list4modify&ddate_start=<%=TimeUtil.date2str(TimeUtil.getTheFirstDayOfTheMonth(),"yyyy-MM-dd") %>')">
 								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
 								&nbsp;&nbsp;发货单价格修改
 							</td>
 						</tr>
-						<%
-						if (isAdmin)
-						{
-						%>
-						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'System/Servlet?method=preDbAddOrModify')">
-								<img src="images/svg/heavy/green/receipt.png" width="18" height="18" align="middle" />
-								&nbsp;&nbsp;账套管理
-							</td>
-						</tr>
-						<%} %>
-						<!-- 
+						
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/Dispatchlists/Servlet?method=list4this')">
 								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
@@ -94,13 +84,59 @@ function toggleMenuGroup(td,menuGroupId)
 								&nbsp;&nbsp;价格修改记录
 							</td>
 						</tr>
-						 -->
+						 
 
 						
 					</table>
 					
 				</td>
 			</tr>
+			 -->
+			 
+			<tr>
+				<td class="menu_header_expand" onclick="toggleMenuGroup(this,'05')">
+					采购价格管理
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table id="menu_group_05" width="100%" cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/PurcharsePriceMain/Servlet?method=list4this')">
+								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
+								&nbsp;&nbsp;采购价格管理
+							</td>
+						</tr>
+						<tr>
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/VPurbillvouchs/list.jsp')">
+								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
+								&nbsp;&nbsp;采购发票核查
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			
+			 <!--
+			<tr>
+				<td class="menu_header_expand" onclick="toggleMenuGroup(this,'06')">
+					U8
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table id="menu_group_06" width="100%" cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/Inventory/Servlet?method=list4this')">
+								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
+								&nbsp;&nbsp;存货(inventory)
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			
+			 -->
 
 			<tr>
 				<td class="menu_header_expand" onclick="toggleMenuGroup(this,'99')">
@@ -186,6 +222,19 @@ function toggleMenuGroup(td,menuGroupId)
 							</td>
 						</tr>
 						-->
+						
+						
+						<%
+						if (isAdmin)
+						{
+						%>
+						<tr>
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'System/Servlet?method=preDbAddOrModify')">
+								<img src="images/svg/heavy/green/receipt.png" width="18" height="18" align="middle" />
+								&nbsp;&nbsp;账套管理
+							</td>
+						</tr>
+						<%} %>
 					</table>
 				</td>
 			</tr>

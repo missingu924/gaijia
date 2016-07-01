@@ -141,7 +141,7 @@ public class MyBeanUtils
 	 * @param instance
 	 * @throws Exception
 	 */
-	public static Object createInstanceFromHttpRequest(Map<String, String[]> parameterMap, Class clz, boolean isFromUrl) throws Exception
+	public static Object createInstanceFromHttpRequest(Map<String, String[]> parameterMap, Class clz, boolean isFromUrl, int instanceIndex) throws Exception
 	{
 		Object instance = clz.newInstance();
 
@@ -149,10 +149,12 @@ public class MyBeanUtils
 		for (int i = 0; i < properties.size(); i++)
 		{
 			PropertyDescriptor property = properties.get(i);
+			
+			logger.debug("从Request里面抽取数据：" + instance.getClass() + "." + property.getPropertyType() + "." + property.getName());
 
 			String[] propertyValues = parameterMap.get(property.getName());
 
-			String propertyValueStr = propertyValues == null ? null : propertyValues[0];// 取第一个元素
+			String propertyValueStr = (propertyValues == null || propertyValues.length <= instanceIndex) ? null : propertyValues[instanceIndex];// 取第instanceIndex个元素
 			if (isFromUrl)
 			{
 				if (isFromUrl)
@@ -200,6 +202,33 @@ public class MyBeanUtils
 		}
 
 		return instance;
+	}
+	
+	/**
+	 * 从HttpServletRequest里面获取数据并构造对象列表，如果有父对象，则将子对象的父对象id填充上
+	 * 
+	 * @param request
+	 * @param parentObj
+	 * @param childObjClz
+	 * @param childrenObjCount
+	 * @param isFromUrl
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<BaseDbObj> createInstanceListFromHttpRequest(HttpServletRequest request, BaseDbObj parentObj, Class childObjClz, int childrenObjCount, boolean isFromUrl) throws Exception
+	{
+		List<BaseDbObj> childrenList = new ArrayList<BaseDbObj>();
+		for (int i = 0; i < childrenObjCount; i++)
+		{
+			BaseDbObj child = (BaseDbObj) MyBeanUtils.createInstanceFromHttpRequest(request.getParameterMap(), childObjClz, isFromUrl, i);
+			child.setId(-1l);//防止父对象的主键值填充到子对象的主键中
+			if (parentObj!=null)
+			{
+				child.setParentKeyValue(parentObj.getKeyValue());
+			}
+			childrenList.add(child);
+		}
+		return childrenList;
 	}
 
 	public static String getWhereSqlFromBean(BaseDbObj baseDbObj, List<String> tableColumns, boolean useLike) throws Exception

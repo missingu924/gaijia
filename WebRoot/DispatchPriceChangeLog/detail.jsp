@@ -3,8 +3,8 @@
 <!-- 引入类 -->  
 <%@page import="java.util.List"%> 
 <%@page import="com.wuyg.common.util.StringUtil"%> 
-<%@page import="com.hz.dict.service.DictionaryService"%> 
-<%@page import="com.dispatch.obj.DispatchPriceChangeLogObj"%> 
+<%@page import="com.dispatch.obj.DispatchPriceChangeLogObj"%>
+<%@page import="com.wuyg.dictionary.service.DictionaryService"%> 
 <% 
 	// 当前上下文路径  
 	String contextPath = request.getContextPath();  

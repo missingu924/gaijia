@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.hz.util.SystemConstant;
 import com.wuyg.auth.obj.AuthLogLoginObj;
 import com.wuyg.auth.obj.AuthRoleObj;
 import com.wuyg.auth.obj.AuthUserObj;
@@ -22,6 +21,7 @@ import com.wuyg.common.dao.IBaseDAO;
 import com.wuyg.common.servlet.AbstractBaseServletTemplate;
 import com.wuyg.common.util.RequestUtil;
 import com.wuyg.common.util.StringUtil;
+import com.wuyg.common.util.SystemConstant;
 
 public class AuthUserServlet extends AbstractBaseServletTemplate
 {
@@ -237,7 +237,7 @@ public class AuthUserServlet extends AbstractBaseServletTemplate
 			logLogin.setUseraccount(user.getAccount());
 			logLogin.setUsername(user.getName());
 			logLogin.setUserdistrict(user.getDistrict());
-			logLogin.setUserdepartmentid(user.getDepartmentid());
+			logLogin.setUserdepartmentcode(user.getDepartmentcode());
 			logLogin.setTimestamp(new Timestamp(System.currentTimeMillis()));
 			authLoginLogDao.save(logLogin);
 		}		

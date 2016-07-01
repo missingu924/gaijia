@@ -2,7 +2,6 @@ package com.wuyg.system;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,20 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.hz.util.SystemConstant;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.wuyg.common.dao.DefaultBaseDAO;
 import com.wuyg.common.dao.IBaseDAO;
 import com.wuyg.common.util.MySqlUtil;
 import com.wuyg.common.util.RequestUtil;
 import com.wuyg.common.util.StringUtil;
+import com.wuyg.common.util.SystemConstant;
 import com.wuyg.system.obj.SystemConfigDbObj;
 
 public class SystemServlet extends HttpServlet
 {
 	private Logger logger = Logger.getLogger(getClass());
 
-	private IBaseDAO systemConfigDao = new DefaultBaseDAO(SystemConfigDbObj.class, SystemConstant.INNER_DB);
+	private IBaseDAO systemConfigDao = new DefaultBaseDAO(SystemConfigDbObj.class, SystemConstant.DEFAULT_DB);
 
 	private String U8_DB = SystemConstant.U8_DB;
 

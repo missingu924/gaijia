@@ -21,7 +21,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 
-import com.hz.util.SystemConstant;
+import com.alibaba.fastjson.JSON;
 import com.wuyg.auth.obj.AuthUserObj;
 import com.wuyg.common.dao.BaseDbObj;
 import com.wuyg.common.dao.IBaseDAO;
@@ -30,6 +30,7 @@ import com.wuyg.common.obj.PaginationObj;
 import com.wuyg.common.util.MyBeanUtils;
 import com.wuyg.common.util.RequestUtil;
 import com.wuyg.common.util.StringUtil;
+import com.wuyg.common.util.SystemConstant;
 import com.wuyg.common.util.TimeUtil;
 
 public abstract class AbstractBaseServletTemplate extends HttpServlet
@@ -74,6 +75,14 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 	public static final String DOMAIN_INSTANCE = "domainInstance";
 	public static final String DOMAIN_PAGINATION = "domainPagination";
 
+	@Override
+	public void init() throws ServletException
+	{
+		// TODO Auto-generated method stub
+		super.init();
+
+	}
+
 	/**
 	 * The doGet method of the servlet. <br>
 	 * 
@@ -97,8 +106,7 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 	/**
 	 * The doPost method of the servlet. <br>
 	 * 
-	 * This method is called when a form has its tag value method equals to
-	 * post.
+	 * This method is called when a form has its tag value method equals to post.
 	 * 
 	 * @param request
 	 *            the request send by the client to the server
@@ -121,6 +129,11 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 
 			// 从页面传递过来的参数里面获取基本信息
 			parseParameters(request, method);
+
+			// 设置response编码
+			response.setCharacterEncoding("UTF-8");
+			// 跨域
+			response.setHeader("Access-Control-Allow-Origin", "*");
 
 			// 执行相关方法
 			if (BASE_METHOD_LIST.equals(method))
@@ -162,7 +175,7 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 	public void list(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		// 查询
-		PaginationObj domainPagination = getDomainDao().searchPaginationByDomainInstance(domainInstance, domainInstance.findDefaultOrderBy(), domainSearchCondition.getPageNo(), domainSearchCondition.getPageCount());
+		PaginationObj domainPagination = getDomainDao().searchPaginationByDomainInstance(domainInstance, true, domainInstance.findDefaultOrderBy(), domainSearchCondition.getPageNo(), domainSearchCondition.getPageCount());// 使用like构造条件
 
 		request.setAttribute(DOMAIN_INSTANCE, domainInstance);
 		request.setAttribute(DOMAIN_PAGINATION, domainPagination);
@@ -170,24 +183,18 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 		// 转向
 		if ("true".equalsIgnoreCase(request.getParameter("4m")))
 		{
-			request.getRequestDispatcher("/" + getBasePath() + "/" + BASE_METHOD_LIST + "4m.jsp").forward(request, response);
+			// request.getRequestDispatcher("/" + getBasePath() + "/" + BASE_METHOD_LIST + "4m.jsp").forward(request, response);
+			response.getWriter().write(JSON.toJSONString(domainPagination));
 		} else
 		{
 			request.getRequestDispatcher("/" + getBasePath() + "/" + BASE_METHOD_LIST + ".jsp").forward(request, response);
 		}
 	}
 
-	// 检查ID是否已录入系统
+	// 检查唯一索引值是否已录入系统
 	public void checkId(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
-		// if (domainInstance.getKeyValue() < 0)
-		// {
-		// response.getWriter().write("false");
-		// response.flushBuffer();
-		// } else
-		// {
-
-		List<String> uniqueIndexProperties = domainInstance.getUniqueIndexProperties();
+		List<String> uniqueIndexProperties = domainInstance.findUniqueIndexProperties();
 
 		String whereSql = " 1=1 ";
 		for (int i = 0; i < uniqueIndexProperties.size(); i++)
@@ -206,20 +213,21 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 			response.getWriter().write("false");
 		}
 		response.flushBuffer();
-		// }
 	}
 
 	// 增加 or 修改
 	public void addOrModify(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		// 保存或更新
+		boolean success = false;
 		if (domainInstance.getKeyValue() < 0)
 		{
-			long keyValue = getDomainDao().getMaxKeyValue();
-			domainInstance.setId(keyValue);
+			domainInstance.setId(getDomainDao().getMaxKeyValue());
+			success = getDomainDao().save(domainInstance);
+		} else
+		{
+			success = getDomainDao().update(domainInstance);
 		}
-
-		boolean success = getDomainDao().saveOrUpdate(domainInstance);
 
 		// 声明是新增后转到的详情页面
 		request.setAttribute("needRefresh", true);
@@ -228,7 +236,6 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 		if (success)
 		{
 			detail(request, response);
-			// list(request, response);
 		} else
 		{
 			request.getRequestDispatcher("/error.jsp").forward(request, response);
@@ -270,7 +277,8 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 		// 转向
 		if ("true".equalsIgnoreCase(request.getParameter("4m")))
 		{
-			request.getRequestDispatcher("/" + getBasePath() + "/" + BASE_METHOD_DETAIL + "4m.jsp").forward(request, response);
+			// request.getRequestDispatcher("/" + getBasePath() + "/" + BASE_METHOD_DETAIL + "4m.jsp").forward(request, response);
+			response.getWriter().write(JSON.toJSONString(domainObj));
 		} else
 		{
 			request.getRequestDispatcher("/" + getBasePath() + "/" + BASE_METHOD_DETAIL + ".jsp").forward(request, response);
@@ -278,9 +286,24 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 	}
 
 	// 删除
-	protected void delete(HttpServletRequest request, HttpServletResponse response) throws Exception
+	public void delete(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		int successCount = getDomainDao().deleteByKey(domainInstanceKeyValue);
+
+		// 转向
+		if (successCount > 0)
+		{
+			list(request, response);
+		} else
+		{
+			request.getRequestDispatcher("/error.jsp").forward(request, response);
+		}
+	}
+
+	// 删除 按前台条件查出的所有数据
+	public void deleteAll(HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
+		int successCount = getDomainDao().deleteByDomainInstance(domainInstance, true);// 默认使用like构造条件
 
 		// 转向
 		if (successCount > 0)
@@ -326,7 +349,7 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 		boolean isFromUrl = "true".equalsIgnoreCase(request.getParameter("isFromUrl"));
 
 		// 获取领域对象基本信息
-		domainInstance = (BaseDbObj) MyBeanUtils.createInstanceFromHttpRequest(parameterMap, getDomainInstanceClz(), isFromUrl);
+		domainInstance = (BaseDbObj) MyBeanUtils.createInstanceFromHttpRequest(parameterMap, getDomainInstanceClz(), isFromUrl, 0);
 
 		// 获取领域对象主键值
 		domainInstanceKeyValue = request.getParameter(domainInstance.findKeyColumnName());
@@ -336,7 +359,7 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 		}
 
 		// 获取领域对象查询查询条件
-		domainSearchCondition = (BaseSearchCondition) MyBeanUtils.createInstanceFromHttpRequest(parameterMap, getDomainSearchConditionClz(), isFromUrl);
+		domainSearchCondition = (BaseSearchCondition) MyBeanUtils.createInstanceFromHttpRequest(parameterMap, getDomainSearchConditionClz(), isFromUrl, 0);
 
 		// 设置查询条件的业务对象
 		domainSearchCondition.setDomainObj(domainInstance);

@@ -79,6 +79,12 @@ public class AuthFunctionServlet extends AbstractBaseServletTemplate
 		super.delete(request,response);
 	}
 
+	// 删除 按前台条件查出的所有数据
+	public void deleteAll4this(HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
+		super.deleteAll(request,response);
+	}
+
 	// 导出
 	public void export4this(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{

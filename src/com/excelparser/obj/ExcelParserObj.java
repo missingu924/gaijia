@@ -52,7 +52,7 @@ public String getCnName()
 {
 	return "Excel解析器";
 }
-public LinkedHashMap<String, String> getProperties()
+public LinkedHashMap<String, String> findProperties()
 {
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 

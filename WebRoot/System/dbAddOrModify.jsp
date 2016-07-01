@@ -1,15 +1,10 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" errorPage=""%>
-<%@page import="com.hz.auth.obj.AuthUser"%>
+
 <%@page import="java.util.List"%>
-<%@page import="com.hz.util.SystemConstant"%>
 <%@page import="com.wuyg.common.util.StringUtil"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.wuyg.common.obj.PaginationObj"%>
-<%@page import="com.hz.auth.obj.AuthDepartment"%>
 <%@page import="com.inspur.common.dictionary.util.DictionaryUtil"%>
-<%@page import="com.hz.dict.service.DictionaryService"%>
-<%@page import="com.hz.auth.service.AuthService"%>
-<%@page import="com.hz.dict.service.IDictionaryService"%>
 <%@page import="java.net.URLEncoder"%>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">

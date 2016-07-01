@@ -54,10 +54,10 @@ public class RequestUtil
 	{
 		BaseDbObj domainInstance = (BaseDbObj) domainInstanceClz.newInstance();
 
-		LinkedHashMap<String, String> properties = domainInstance.getProperties();
+		LinkedHashMap<String, String> properties = domainInstance.findProperties();
 		properties.remove(domainInstance.findKeyColumnName());// 系统内部生成的ID不导出
 
-		List<String> uniqueIndexProperties = domainInstance.getUniqueIndexProperties();
+		List<String> uniqueIndexProperties = domainInstance.findUniqueIndexProperties();
 
 		String fileName = StringUtil.getNotEmptyStr(domainInstance.getCnName(), "明细数据");
 

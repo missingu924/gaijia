@@ -168,7 +168,7 @@ public class SoSodetailsObj extends BaseDbObj
 	}
 
 	@Override
-	public List<String> getUniqueIndexProperties()
+	public List<String> findUniqueIndexProperties()
 	{
 		List<String> l = new ArrayList<String>();
 		l.add("csocode"); // 销售订单号
@@ -176,7 +176,7 @@ public class SoSodetailsObj extends BaseDbObj
 		return l;
 	}
 
-	public LinkedHashMap<String, String> getProperties()
+	public LinkedHashMap<String, String> findProperties()
 	{
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 

@@ -209,6 +209,32 @@
 		<url-pattern>/VDispatchlists/Servlet</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>PurcharsePriceMainServlet</servlet-name>
+		<servlet-class>com.purcharse.PurcharsePriceMainServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PurcharsePriceMainServlet</servlet-name>
+		<url-pattern>/PurcharsePriceMain/Servlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PurcharsePriceDetailServlet</servlet-name>
+		<servlet-class>com.purcharse.PurcharsePriceDetailServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PurcharsePriceDetailServlet</servlet-name>
+		<url-pattern>/PurcharsePriceDetail/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>VPurbillvouchsServlet</servlet-name>
+		<servlet-class>com.u8.VPurbillvouchsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VPurbillvouchsServlet</servlet-name>
+		<url-pattern>/VPurbillvouchs/Servlet</url-pattern>
+	</servlet-mapping>
+	
 
 
 

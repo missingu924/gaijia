@@ -13,8 +13,7 @@ public class AuthLogLoginObj extends BaseDbObj
 	private String useraccount;
 	private String username;
 	private String userdistrict;
-	private String userdepartmentid;
-	private String userdepartmentname;
+	private String userdepartmentcode;
 	private Timestamp timestamp;
 
 	@Override
@@ -55,13 +54,13 @@ public class AuthLogLoginObj extends BaseDbObj
 	}
 
 	@Override
-	public List<String> getUniqueIndexProperties()
+	public List<String> findUniqueIndexProperties()
 	{
 		return Arrays.asList(new String[]
 		{ "null" });
 	}
 
-	public LinkedHashMap<String, String> getProperties()
+	public LinkedHashMap<String, String> findProperties()
 	{
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 
@@ -70,7 +69,7 @@ public class AuthLogLoginObj extends BaseDbObj
 		pros.put("username", "姓名");
 		// pros.put("userdistrict", "userdistrict");
 		// pros.put("userdepartmentid", "userdepartmentid");
-		pros.put("userdepartmentname", "部门");
+		pros.put("userdepartmentcode", "部门");
 		pros.put("timestamp", "登录时间");
 		return pros;
 	}
@@ -115,24 +114,15 @@ public class AuthLogLoginObj extends BaseDbObj
 		this.userdistrict = userdistrict;
 	}
 
-	public String getUserdepartmentid()
+
+	public String getUserdepartmentcode()
 	{
-		return userdepartmentid;
+		return userdepartmentcode;
 	}
 
-	public void setUserdepartmentid(String userdepartmentid)
+	public void setUserdepartmentcode(String userdepartmentcode)
 	{
-		this.userdepartmentid = userdepartmentid;
-	}
-
-	public String getUserdepartmentname()
-	{
-		return userdepartmentname;
-	}
-
-	public void setUserdepartmentname(String userdepartmentname)
-	{
-		this.userdepartmentname = userdepartmentname;
+		this.userdepartmentcode = userdepartmentcode;
 	}
 
 	public Timestamp getTimestamp()

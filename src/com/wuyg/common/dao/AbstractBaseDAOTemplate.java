@@ -1,7 +1,6 @@
 package com.wuyg.common.dao;
 
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -57,6 +56,26 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 	 * @return
 	 */
 	public abstract List<String> getUniqueIndexColumns();
+
+	public int deleteByDomainInstance(BaseDbObj domainInstance)
+	{
+		return deleteByDomainInstance(domainInstance, true);
+	}
+
+	public int deleteByDomainInstance(BaseDbObj domainInstance, boolean useLike)
+	{
+		try
+		{
+			String where = " 1=1 ";
+			// 把非空的基本条件设置上
+			where += MyBeanUtils.getWhereSqlFromBean(domainInstance, getTableMetaData(), useLike);
+			return deleteByClause(where);
+		} catch (Exception e)
+		{
+			logger.error(e.getMessage(), e);
+		}
+		return 0;
+	}
 
 	public int deleteByKeys(List<String> keys)
 	{
@@ -122,7 +141,6 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 				{
 					PropertyDescriptor p = propertyDescriptors.get(j);
 					String pName = p.getName();
-
 					Object pValue = MyBeanUtils.getPropertyValue(instance, pName);
 
 					logger.debug(pName + "=" + pValue);
@@ -133,24 +151,19 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 						{
 							// 时间类型，DB对象中一定要用java.sql.TimeStamp类型
 							pstmt.setTimestamp(j + 1, TimeUtil.getTimeStamp(pValue.toString()));
-						}
-						else if (pValue.getClass().equals(BigDecimal.class))
+						} else if (pValue.getClass().equals(BigDecimal.class))
 						{
-							pstmt.setBigDecimal(j + 1, BigDecimal.valueOf(StringUtil.parseDouble(pValue+"")));
-						}
-						else if (pValue.getClass().equals(Integer.class)||pValue.getClass().equals(Long.class))
+							pstmt.setBigDecimal(j + 1, BigDecimal.valueOf(StringUtil.parseDouble(pValue + "")));
+						} else if (pValue.getClass().equals(Integer.class) || pValue.getClass().equals(Long.class))
 						{
-							pstmt.setLong(j + 1, StringUtil.parseLong(pValue+""));
-						}
-						else if (pValue.getClass().equals(Float.class)||pValue.getClass().equals(Double.class))
+							pstmt.setLong(j + 1, StringUtil.parseLong(pValue + ""));
+						} else if (pValue.getClass().equals(Float.class) || pValue.getClass().equals(Double.class))
 						{
-							pstmt.setDouble(j + 1, StringUtil.parseDouble(pValue+""));
-						}
-						else if (pValue.getClass().equals(Boolean.class))
+							pstmt.setDouble(j + 1, StringUtil.parseDouble(pValue + ""));
+						} else if (pValue.getClass().equals(Boolean.class))
 						{
-							pstmt.setBoolean(j+1, "true".equalsIgnoreCase(pValue+"")?true:false);
-						}
-						else
+							pstmt.setBoolean(j + 1, "true".equalsIgnoreCase(pValue + "") ? true : false);
+						} else
 						{
 							pstmt.setString(j + 1, pValue.toString());
 						}
@@ -224,7 +237,7 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 					where += " or ";
 				}
 
-				where += instanceList.get(i).getUniqueIndexClause();
+				where += instanceList.get(i).findUniqueIndexClause();
 			}
 
 			list = searchByClause(clz, where, null, 0, Integer.MAX_VALUE);
@@ -495,9 +508,8 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 
 			List<String> uniqueIndexColumns = getUniqueIndexColumns();
 
-			// sql += " where " + getKeyColumnName() + "=? ";
+			sql += " where (" + getKeyColumnName() + "=?) or ("; // 支持用keyColumn和uniqueIndex两种方式更新
 
-			sql += " where ";
 			for (int i = 0; i < uniqueIndexColumns.size(); i++)
 			{
 				sql += uniqueIndexColumns.get(i) + "=? ";
@@ -506,6 +518,7 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 					sql += " and ";
 				}
 			}
+			sql += ")";
 
 			logger.info(getTableName() + " udpate sql:" + sql);
 
@@ -513,14 +526,8 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 
 			for (int j = 0; j < instances.size(); j++)
 			{
-				Object instance = instances.get(j);
-				// Object key = BeanUtils.getProperty(instance,
-				// getKeyColumnName());
-				// if (key == null)
-				// {
-				// logger.info("Db 对象的主键为空无法更新，忽略该对象。");
-				// continue;
-				// }
+				BaseDbObj instance = instances.get(j);
+
 				// 设置值
 				for (int i = 0; i < propertyDescriptors.size(); i++)
 				{
@@ -537,10 +544,13 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 					}
 				}
 
+				// 设置主键
+				pstmt.setString(propertyDescriptors.size() + 1, instance.getKeyValue() + "");
+
 				// 设置索引值
-				for (int i = 1; i <= uniqueIndexColumns.size(); i++)
+				for (int i = 0; i < uniqueIndexColumns.size(); i++)
 				{
-					pstmt.setString(propertyDescriptors.size() + i, BeanUtils.getProperty(instance, uniqueIndexColumns.get(i - 1)));
+					pstmt.setString(propertyDescriptors.size() + i + 2, BeanUtils.getProperty(instance, uniqueIndexColumns.get(i)));
 				}
 
 				pstmt.addBatch();
@@ -576,7 +586,7 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 	public SaveOrUpdateResult saveOrUpdate(List<BaseDbObj> instanceList, boolean update)
 	{
 		SaveOrUpdateResult saveOrUpdateResult = new SaveOrUpdateResult();
-		
+
 		// 查询出已经在数据库中的对象
 		List inDbList = searchByInstanceList(instanceList);
 
@@ -608,7 +618,7 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 			{
 				result = update(updateList);
 				logger.info("更新" + updateList.size() + "条数据," + (result ? "成功" : "失败"));
-				
+
 				saveOrUpdateResult.setUpdateSuccess(result);
 				saveOrUpdateResult.setUpdatedRows(updateList.size());
 			}
@@ -622,13 +632,13 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 		{
 			result = save(insertList);
 			logger.info("插入" + insertList.size() + "条数据," + (result ? "成功" : "失败"));
-			
+
 			saveOrUpdateResult.setSaveSuccess(result);
 			saveOrUpdateResult.setSavedRows(insertList.size());
 		}
 
 		logger.info(saveOrUpdateResult.toString());
-		
+
 		return saveOrUpdateResult;
 	}
 

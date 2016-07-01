@@ -13,12 +13,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
   </head>
+		<style type="text/css">
+.loginTitle {
+	font-size: 16px;
+	font-weight: bold;
+}
 
-  <body>
+.infoStyle {
+	font-size: 20px;
+	color: #FF0000;
+}
+
+/* 背景图 */
+.loginBg {
+	background: center center no-repeat url(images/main_bg.png);
+}
+-->
+</style>
+  <body  class="loginBg">
   <table align="center">
   	<tr>
   	<td>
-  	
     </td>
     </tr>
     </table>

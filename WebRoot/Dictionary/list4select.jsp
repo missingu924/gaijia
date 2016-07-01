@@ -5,7 +5,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.wuyg.common.util.StringUtil"%>
 <%@page import="com.inspur.common.dictionary.util.DictionaryUtil"%>
-<%@page import="com.hz.dict.service.DictionaryService"%>
 <%@page import="com.wuyg.dictionary.obj.DictionaryObj"%>
 <%@page import="com.inspur.common.dictionary.pojo.DictItem"%>
 <!-- 基本信息 -->

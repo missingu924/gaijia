@@ -40,8 +40,8 @@
 						<%=domainInstance.getPropertyCnName("name") %> 
 						<input name="name" type="text" id="name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getName())%>" size="20" > 
 						&nbsp; <br>
-						<%=domainInstance.getPropertyCnName("departmentid") %> 
-						<%=DictionaryUtil.getInputHtml("U8部门字典", "departmentid", StringUtil.getNotEmptyStr(domainInstance.getDepartmentid(), ""))%> 
+						<%=domainInstance.getPropertyCnName("departmentcode") %> 
+						<%=DictionaryUtil.getInputHtml("U8部门字典", "departmentid", StringUtil.getNotEmptyStr(domainInstance.getDepartmentcode(), ""))%> 
 						&nbsp;   
 						<%=domainInstance.getPropertyCnName("rolelevel") %> 
 						<%=DictionaryUtil.getInputHtml("角色字典", "rolelevel", StringUtil.getNotEmptyStr(domainInstance.getRolelevel(), ""))%> 
@@ -80,7 +80,7 @@
 						<th><%=domainInstance.getPropertyCnName("name") %></th> 
 						<th><%=domainInstance.getPropertyCnName("sex") %></th> 
 						<th><%=domainInstance.getPropertyCnName("telephone") %></th> 
-						<th><%=domainInstance.getPropertyCnName("departmentid") %></th>
+						<th><%=domainInstance.getPropertyCnName("departmentcode") %></th>
 						<th><%=domainInstance.getPropertyCnName("rolelevel") %></th> 
 						<th><%=domainInstance.getPropertyCnName("district") %></th> 
 						<th>操作</th> 
@@ -99,7 +99,7 @@
 					<td><%=StringUtil.getNotEmptyStr(o.getName())%></td> 
 					<td><%=DictionaryUtil.getDictValueByDictKey("性别字典",o.getSex())%></td>  
 					<td><%=StringUtil.getNotEmptyStr(o.getTelephone())%></td> 
-					<td><%=DictionaryUtil.getDictValueByDictKey("U8部门字典",o.getDepartmentid())%></td> 
+					<td><%=DictionaryUtil.getDictValueByDictKey("U8部门字典",o.getDepartmentcode())%></td> 
 					<td><%=DictionaryUtil.getDictValueByDictKey("角色字典",o.getRolelevel())%></td>  
 					<td><%=DictionaryUtil.getDictValueByDictKey("U8人员字典",o.getDistrict())%></td>
 					<td width="80" style="text-align:center"> 

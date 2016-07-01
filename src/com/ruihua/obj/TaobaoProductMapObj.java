@@ -45,13 +45,13 @@ public String getCnName()
 	return "商品对照关系";
 }
 @Override
-public List<String> getUniqueIndexProperties()
+public List<String> findUniqueIndexProperties()
 {
 	List<String> l = new ArrayList<String>();
 	l.add("taobao_product_code");
 	return l;
 }
-public LinkedHashMap<String, String> getProperties()
+public LinkedHashMap<String, String> findProperties()
 {
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 

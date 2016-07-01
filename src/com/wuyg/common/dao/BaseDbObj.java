@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
 import com.wuyg.common.util.StringUtil;
 
 /**
@@ -70,7 +71,7 @@ public abstract class BaseDbObj
 	 * 
 	 * @return
 	 */
-	public abstract LinkedHashMap<String, String> getProperties();
+	public abstract LinkedHashMap<String, String> findProperties();
 
 	/**
 	 * 根据表的主键获取实例对象的主键值
@@ -102,7 +103,7 @@ public abstract class BaseDbObj
 	 */
 	public String getKeyCnName() throws Exception
 	{
-		return getProperties().get(findKeyColumnName());
+		return findProperties().get(findKeyColumnName());
 	}
 
 	/**
@@ -113,7 +114,7 @@ public abstract class BaseDbObj
 	 */
 	public String getPropertyCnName(String cnName)
 	{
-		return StringUtil.getNotEmptyStr(getProperties().get(cnName));
+		return StringUtil.getNotEmptyStr(findProperties().get(cnName));
 	}
 
 	/**
@@ -121,7 +122,7 @@ public abstract class BaseDbObj
 	 * 
 	 * @return
 	 */
-	public List<String> getUniqueIndexProperties()
+	public List<String> findUniqueIndexProperties()
 	{
 		List<String> uniqueIndexProperties = new ArrayList<String>();
 		uniqueIndexProperties.add(findKeyColumnName());// 默认用主键
@@ -134,11 +135,11 @@ public abstract class BaseDbObj
 	 * @return
 	 * @throws Exception
 	 */
-	public String getUniqueIndexClause() throws Exception
+	public String findUniqueIndexClause() throws Exception
 	{
 		String clause = "";
 
-		List<String> uniqueIndexProperties = getUniqueIndexProperties();
+		List<String> uniqueIndexProperties = findUniqueIndexProperties();
 
 		for (int i = 0; i < uniqueIndexProperties.size(); i++)
 		{
@@ -162,7 +163,7 @@ public abstract class BaseDbObj
 		boolean isEquals = true;
 		try
 		{
-			List<String> uniqueIndexProperties = getUniqueIndexProperties();
+			List<String> uniqueIndexProperties = findUniqueIndexProperties();
 
 			for (int i = 0; i < uniqueIndexProperties.size(); i++)
 			{
@@ -215,7 +216,23 @@ public abstract class BaseDbObj
 		{
 			logger.error(propertyName + " " + e.getMessage(), e);
 		}
-		
+
 		return null;
+	}
+
+	/**
+	 * 设置父对象ID
+	 * 
+	 * @param parentId
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 */
+	public void setParentKeyValue(Long parentKeyValue) throws Exception
+	{
+		String parentKeyColumnName = findParentKeyColumnName();
+		if (!StringUtil.isEmpty(parentKeyColumnName))
+		{
+			BeanUtils.setProperty(this, parentKeyColumnName, parentKeyValue);
+		}
 	}
 }

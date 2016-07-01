@@ -146,6 +146,26 @@ body {
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
+.orange_button {
+  background: #ff9966;
+  height:36px;
+  color: #FFFFFF;
+  border: 1px solid #FFFFFF;
+  cursor: pointer;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.gray_button {
+  background: #cccccc;
+  height:36px;
+  color: #FFFFFF;
+  border: 1px solid #FFFFFF;
+  cursor: pointer;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
 .image_button {
   cursor: pointer;
 }

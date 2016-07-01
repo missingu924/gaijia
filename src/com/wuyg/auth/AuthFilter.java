@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.hz.util.SystemConstant;
 import com.wuyg.auth.obj.AuthUserObj;
+import com.wuyg.common.util.SystemConstant;
 
 public class AuthFilter implements Filter
 {

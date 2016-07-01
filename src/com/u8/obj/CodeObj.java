@@ -95,7 +95,7 @@ public String getCnName()
 {
 	return "会计科目";
 }
-public LinkedHashMap<String, String> getProperties()
+public LinkedHashMap<String, String> findProperties()
 {
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 

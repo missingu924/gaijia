@@ -30,6 +30,7 @@ public class SystemConstant
 	public static final String DB_ORACLE="ORALCE";
 	public static final String DB_MYSQL="MYSQL";
 	public static final String DB_SQLSERVER="SQLSERVER";
+	public static final String U8_DB="U8_DB";
 	
 	
 }

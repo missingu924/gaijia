@@ -5,7 +5,6 @@
 <%@page import="java.util.ArrayList"%> 
 <%@page import="com.wuyg.common.util.StringUtil"%> 
 <%@page import="com.wuyg.common.obj.PaginationObj"%> 
-<%@page import="com.hz.dict.service.DictionaryService"%> 
 <%@page import="com.dispatch.obj.DispatchPriceChangeLogObj"%>
 <%@page import="com.wuyg.dictionary.DictionaryUtil"%>
 <%@page import="com.wuyg.common.util.TimeUtil"%> 

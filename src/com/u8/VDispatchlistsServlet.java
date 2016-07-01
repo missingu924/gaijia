@@ -6,21 +6,18 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.beanutils.MethodUtils;
 import org.apache.log4j.Logger;
 
 import com.dispatch.obj.DispatchPriceChangeLogObj;
-import com.hz.util.SystemConstant;
-import com.u8.obj.DispatchlistObj;
 import com.u8.obj.DispatchlistsObj;
 import com.u8.obj.VDispatchlistsObj;
 import com.wuyg.common.dao.BaseDbObj;
 import com.wuyg.common.dao.DefaultBaseDAO;
 import com.wuyg.common.dao.IBaseDAO;
-import com.wuyg.common.obj.PaginationObj;
 import com.wuyg.common.servlet.AbstractBaseServletTemplate;
 import com.wuyg.common.util.MyBeanUtils;
 import com.wuyg.common.util.StringUtil;
+import com.wuyg.common.util.SystemConstant;
 import com.wuyg.common.util.TimeUtil;
 
 public class VDispatchlistsServlet extends AbstractBaseServletTemplate

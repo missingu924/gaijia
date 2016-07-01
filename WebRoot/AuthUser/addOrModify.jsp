@@ -49,10 +49,9 @@
 		if(!checkNull("password","<%=domainInstance.getPropertyCnName("password")%>")) return false; 
 		if(!checkNull("name","<%=domainInstance.getPropertyCnName("name")%>")) return false; 
 		if(!checkNull("sex","<%=domainInstance.getPropertyCnName("sex")%>")) return false;  
-		if(!checkNull("departmentid","<%=domainInstance.getPropertyCnName("departmentid")%>")) return false;  
-		if(!checkNull("office","<%=domainInstance.getPropertyCnName("office")%>")) return false; 
+		if(!checkNull("departmentcode","<%=domainInstance.getPropertyCnName("departmentcode")%>")) return false;  
+		if(!checkNull("officecode","<%=domainInstance.getPropertyCnName("officecode")%>")) return false; 
 		if(!checkNull("rolelevel","<%=domainInstance.getPropertyCnName("rolelevel")%>")) return false; 
-		if(!checkNull("district","<%=domainInstance.getPropertyCnName("district")%>")) return false; 
 					 
 			// 修改 
 			if("true"=="<%=isModify%>") 
@@ -139,8 +138,8 @@
 					<td><input name="telephone" type="text" id="telephone" value="<%=StringUtil.getNotEmptyStr(domainInstance.getTelephone(),"")%>" size="20"  ></td> 
 			    </tr>
 				<tr>
-				  <td><%=domainInstance.getPropertyCnName("departmentid") %>: </td>
-				  <td><%=DictionaryUtil.getInputHtml("U8部门字典", "departmentid", StringUtil.getNotEmptyStr(domainInstance.getDepartmentid(), ""))%> <font color="red">*</font></td>
+				  <td><%=domainInstance.getPropertyCnName("departmentcode") %>: </td>
+				  <td><%=DictionaryUtil.getInputHtml("U8部门字典", "departmentcode", StringUtil.getNotEmptyStr(domainInstance.getDepartmentcode(), ""))%> <font color="red">*</font></td>
 			  </tr>
 				<tr>
 				  <td><%=domainInstance.getPropertyCnName("rolelevel") %>: </td>
@@ -148,7 +147,7 @@
 			  </tr> 
 			  <tr>
 				  <td><%=domainInstance.getPropertyCnName("district") %>: </td>
-				  <td><%=DictionaryUtil.getInputHtml("U8人员字典", "district", StringUtil.getNotEmptyStr(domainInstance.getDistrict(), ""))%> <font color="red">*</font> </td>
+				  <td><%=DictionaryUtil.getInputHtml("U8人员字典", "district", StringUtil.getNotEmptyStr(domainInstance.getDistrict(), ""))%> </td>
 			  </tr> 
 			</table> 
 

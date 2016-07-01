@@ -1,20 +1,14 @@
 package com.u8;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.beanutils.MethodUtils;
 import org.apache.log4j.Logger;
 
-import com.hz.util.SystemConstant;
 import com.wuyg.common.dao.DefaultBaseDAO;
 import com.wuyg.common.dao.IBaseDAO;
-import com.wuyg.common.obj.PaginationObj;
 import com.wuyg.common.servlet.AbstractBaseServletTemplate;
-import com.wuyg.common.util.StringUtil;
+import com.wuyg.common.util.SystemConstant;
 
 public class SoSodetailsServlet extends AbstractBaseServletTemplate
 {

@@ -1,7 +1,7 @@
 package com.wuyg.common.obj;
 
-import com.hz.util.SystemConstant;
 import com.wuyg.auth.obj.AuthUserObj;
+import com.wuyg.common.util.SystemConstant;
 
 public abstract class BaseSearchCondition
 {

@@ -7,13 +7,10 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import oracle.jdbc.driver.OracleDriver;
-
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.log4j.Logger;
 
-import com.hz.config.ConfigReader;
-import com.hz.util.SystemConstant;
+import com.wuyg.config.ConfigReader;
 
 public class MySqlUtil
 {
@@ -106,8 +103,9 @@ public class MySqlUtil
 	public static boolean isSomeDb(String dbName, String dbType)
 	{
 		String driverClassName = ConfigReader.getProperties(dbName + ".dbDriverClassName");
-		String url = ConfigReader.getProperties(dbName + ".dbUrl");
-		return driverClassName.toUpperCase().contains(dbType.toUpperCase()) || url.toUpperCase().contains(dbType.toUpperCase());
+//		String url = ConfigReader.getProperties(dbName + ".dbUrl");
+//		return driverClassName.toUpperCase().contains(dbType.toUpperCase()) || url.toUpperCase().contains(dbType.toUpperCase());
+		return driverClassName.toUpperCase().contains(dbType.toUpperCase());
 	}
 
 	public static String getLikeClause(String colName, String value)

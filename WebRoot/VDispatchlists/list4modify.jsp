@@ -8,7 +8,7 @@
 <%@page import="com.wuyg.dictionary.DictionaryUtil"%> 
 <%@page import="com.u8.obj.VDispatchlistsObj"%>
 <%@page import="com.wuyg.auth.obj.AuthUserObj"%>
-<%@page import="com.hz.util.SystemConstant"%> 
+<%@page import="com.wuyg.common.util.SystemConstant"%>
 <!-- 基本信息 --> 
 <% 
 	// 当前上下文路径 

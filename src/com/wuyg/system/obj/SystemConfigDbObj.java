@@ -96,14 +96,14 @@ public class SystemConfigDbObj extends BaseDbObj
 	}
 
 	@Override
-	public LinkedHashMap<String, String> getProperties()
+	public LinkedHashMap<String, String> findProperties()
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
-	public List<String> getUniqueIndexProperties()
+	public List<String> findUniqueIndexProperties()
 	{
 		List<String> l = new ArrayList<String>();
 		l.add("name");

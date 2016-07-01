@@ -22,9 +22,9 @@ public class ExcelParserUtil
 		o.setName(baseDbObj.getCnName());// 名字
 		o.setJavaBean(baseDbObj.getClass().getCanonicalName());// 对应的javabean
 
-		LinkedHashMap<String, String> props = baseDbObj.getProperties(); // 所有列
+		LinkedHashMap<String, String> props = baseDbObj.findProperties(); // 所有列
 		
-		List<String> uniqueProps=baseDbObj.getUniqueIndexProperties();
+		List<String> uniqueProps=baseDbObj.findUniqueIndexProperties();
 		Iterator<String> iterator = props.keySet().iterator();
 		while (iterator.hasNext())
 		{
@@ -76,7 +76,7 @@ public class ExcelParserUtil
 		xml.append("	<parseByExcelColumnName>false</parseByExcelColumnName>\n");
 		xml.append("	<ExcelColumnList>\n");
 
-		LinkedHashMap<String, String> columnsMap = baseDbObj.getProperties();
+		LinkedHashMap<String, String> columnsMap = baseDbObj.findProperties();
 		Iterator<String> columnEnNames = columnsMap.keySet().iterator();
 		while (columnEnNames.hasNext())
 		{

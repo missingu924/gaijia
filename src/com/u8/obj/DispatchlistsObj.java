@@ -202,7 +202,7 @@ public class DispatchlistsObj extends BaseDbObj
 		return "发货单子表";
 	}
 
-	public LinkedHashMap<String, String> getProperties()
+	public LinkedHashMap<String, String> findProperties()
 	{
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 

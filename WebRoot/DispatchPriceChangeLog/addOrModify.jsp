@@ -5,9 +5,8 @@
 <%@page import="java.util.ArrayList"%> 
 <%@page import="com.wuyg.common.util.StringUtil"%> 
 <%@page import="com.inspur.common.dictionary.util.DictionaryUtil"%> 
-<%@page import="com.hz.dict.service.DictionaryService"%> 
-<%@page import="com.hz.dict.service.IDictionaryService"%> 
-<%@page import="com.dispatch.obj.DispatchPriceChangeLogObj"%> 
+<%@page import="com.dispatch.obj.DispatchPriceChangeLogObj"%>
+<%@page import="com.wuyg.dictionary.service.DictionaryService"%> 
 <!-- 基本信息 -->  
 <% 
 	// 上下文路径 

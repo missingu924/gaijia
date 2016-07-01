@@ -1,5 +1,19 @@
 // JavaScript Document
 
+/**
+ * 使用json中的属性值替换模板中的属性值，模板中的属性值使用$符号包裹，如：$name$
+ * 
+ * @param {}
+ *            obj
+ * @return {}
+ */
+String.prototype.useJson = function(obj) {
+	return this.replace(/\$\w+\$/gi, function(matchs) {
+				var returns = obj[matchs.replace(/\$/g, "")];
+				return (returns + "") == "undefined" ? "" : returns;
+			});
+};
+
 // 单元格选择初始化函数
 function initTdSelect(selName, inputName) {
 	$("[name='" + selName + "']").click(function() {
@@ -89,8 +103,7 @@ function checkIDcard(id, name) {
 }
 
 // 什么都不检查
-function checkSomething(id,name)
-{
+function checkSomething(id, name) {
 	return true;
 }
 
@@ -103,6 +116,14 @@ function isNumber(s) {
 	} else {
 		return false;
 	}
+}
+
+// 检查是否为double数字
+function isDouble(s) {
+	if (s.match(/^(:?(:?\d+.\d+)|(:?\d+))$/))
+		return true;
+	else
+		return false;
 }
 
 // 选择部门或者人员;输入参数为subject的前,取subject对应的input对象的id前缀。
@@ -149,7 +170,7 @@ function selectSubject(inputIdPre, toSubTree, district, departmentId,
 // 打开一个模态窗口
 function openBigModalDialog(url) {
 	window.showModalDialog(url, window,
-			'dialogHeight:700px;dialogWidth:820px;resizable:yes;maximize:yes');
+			'dialogHeight:800px;dialogWidth:820px;resizable:yes;maximize:yes');
 }
 
 // 打开一个窗口
@@ -170,10 +191,8 @@ function freshCurrentPage(pageNo) {
 	$("#pageForm").submit();
 }
 
-
-//显示所有数据
-function showAllRows(rows)
-{
+// 显示所有数据
+function showAllRows(rows) {
 	$("#pageCount").val(rows);
 	toPage(1);
 }
@@ -227,107 +246,102 @@ function checkNullByLabel(label) {
 }
 
 // 导出
-	function exportData(totalRows,url)
-	{
-		var exportExcel = true;
-			
-		if(totalRows > 500)
-		{
-			exportExcel = confirm("如果条数较多导出时可能需要等待一点时间，您确定导出吗？");
-		}
-		
-		if (exportExcel)
-		{
-			var action = $("form").attr("action");
-			
-			$("form").attr("action",url);
-			$("form").submit();
-			
-			$("form").attr("action",action);
+function exportData(totalRows, url) {
+	var exportExcel = true;
+
+	if (totalRows > 500) {
+		exportExcel = confirm("如果条数较多导出时可能需要等待一点时间，您确定导出吗？");
+	}
+
+	if (exportExcel) {
+		var action = $("form").attr("action");
+
+		$("form").attr("action", url);
+		$("form").submit();
+
+		$("form").attr("action", action);
+	}
+}
+
+function printme() {
+	$("div#printDiv").printArea();
+}
+
+/**
+ * 字典数据项选择
+ * 
+ * @param {}
+ *            dictName 字典名称
+ * @param {}
+ *            keyField 存储key的input字段id
+ * @param {}
+ *            valueField 存储value的input字段id
+ */
+function selectFromDictionary(dictName, keyField, valueField, parentDictName,
+		parentDictKey) {
+	var dictUrl = '../Dictionary/Servlet?method=listItems4select&isFromUrl=true&multiSelect=false&dictname='
+			+ encodeURI(dictName);
+	if (parentDictName) {
+		dictUrl += '&parentDictName=' + encodeURI(parentDictName);
+		dictUrl += '&parentDictKey=' + encodeURI(parentDictKey);
+	}
+
+	var returnValue = window.showModalDialog(dictUrl, this,
+			'dialogHeight:600px;dialogWidth:500px;resizable:yes;maximize:yes');
+
+	// 返回的格式为 key=value
+	if (returnValue != null) {
+		var valueArray = returnValue.split('=');
+		$("#" + keyField).val(valueArray[0]);
+		$("#" + valueField).val(valueArray[1]);
+	}
+}
+
+/**
+ * 从字典中选择并在指定table中添加一行
+ * 
+ * @param {}
+ *            dictName 字典名
+ * @param {}
+ *            tableId 表格id
+ * @param {}
+ *            存储key的input字段id
+ */
+function createRowFromDictionary(dictName, tableId, keyField) {
+	var selectedKeys = "";
+	$("[name='" + keyField + "']").each(function() {
+				selectedKeys += $(this).val() + ";"
+			});
+
+	var dictUrl = '../Dictionary/Servlet?method=listItems4select&isFromUrl=true&multiSelect=true&dictname='
+			+ encodeURI(dictName) + '&selectedKeys=' + encodeURI(selectedKeys);
+
+	var returnValue = window.showModalDialog(dictUrl, this,
+			'dialogHeight:600px;dialogWidth:500px;resizable:yes;maximize:yes');
+
+	// 返回的格式为 key1=value1;key2=value2
+	if (returnValue != null) {
+		var valueArray = returnValue.split(';');
+
+		for (i = 0; i < valueArray.length; i++) {
+			var keyValue = valueArray[i].split('=');
+			var key = keyValue[0];
+			var value = keyValue[1];
+
+			var trHtml = "<tr>";
+			trHtml += "	<td>" + key + "</td>";
+			trHtml += "	<td>" + value + "</td>";
+			trHtml += "	<td> ";
+			trHtml += "		<input type=\"hidden\" name=\"" + keyField
+					+ "\" value=\"" + key + "\">";
+			trHtml += "		<input type=\"button\" class=\"button button_delete\" title=\"删除\" onClick=\"$(this).parents('tr').remove();\" /> ";
+			trHtml += "	</td>";
+			trHtml += "</tr>";
+
+			$("#" + tableId).append(trHtml);
 		}
 	}
-	
-	function printme()
-	{
-		$("div#printDiv").printArea();
-	}
-	
-	/**
-	 *  字典数据项选择
-	 * @param {} dictName 字典名称
-	 * @param {} keyField 存储key的input字段id
-	 * @param {} valueField 存储value的input字段id
-	 */
-	 function selectFromDictionary(dictName,keyField,valueField,parentDictName,parentDictKey)
- 	{
- 		var dictUrl = 	'../Dictionary/Servlet?method=listItems4select&isFromUrl=true&multiSelect=false&dictname='+encodeURI(dictName);
- 		if(parentDictName)
- 		{
-			dictUrl+='&parentDictName='+encodeURI(parentDictName);
-			dictUrl+='&parentDictKey='+encodeURI(parentDictKey);
- 		}	
-			
-			
- 		var returnValue = window.showModalDialog(
-			dictUrl,
-			this,
-			'dialogHeight:600px;dialogWidth:500px;resizable:yes;maximize:yes'
-			);
-
-			// 返回的格式为 key=value
-			if (returnValue != null) {
-				var valueArray = returnValue.split('=');
-				$("#"+keyField).val(valueArray[0]);
-				$("#"+valueField).val(valueArray[1]);
-			}
- 	}
- 	
- 	/**
- 	 * 从字典中选择并在指定table中添加一行
- 	 * 
- 	 * @param {} dictName 字典名
- 	 * @param {} tableId 表格id
- 	 * @param {} 存储key的input字段id 
- 	 */
- 	 function createRowFromDictionary(dictName,tableId,keyField)
- 	{
- 		var selectedKeys = "";
- 		$("[name='"+keyField+"']").each(function()
- 		{
- 				selectedKeys+=$(this).val()+";"
- 		});
- 		
- 		var dictUrl = 	'../Dictionary/Servlet?method=listItems4select&isFromUrl=true&multiSelect=true&dictname='+encodeURI(dictName)+'&selectedKeys='+encodeURI(selectedKeys);
-			
- 		var returnValue = window.showModalDialog(
-			dictUrl,
-			this,
-			'dialogHeight:600px;dialogWidth:500px;resizable:yes;maximize:yes'
-			);
-
-			// 返回的格式为 key1=value1;key2=value2
-			if (returnValue != null) {
-				var valueArray = returnValue.split(';');
-		
-				for(i=0;i<valueArray.length;i++)
-				{
-					var keyValue = valueArray[i].split('=');
-					var key = keyValue[0];
-					var value = keyValue[1];
-					
-					var trHtml ="<tr>";
-					trHtml+="	<td>"+key+"</td>";
-					trHtml+="	<td>"+value+"</td>";
-					trHtml+="	<td> ";
-					trHtml+="		<input type=\"hidden\" name=\""+keyField+"\" value=\""+key+"\">";
-					trHtml+="		<input type=\"button\" class=\"button button_delete\" title=\"删除\" onClick=\"$(this).parents('tr').remove();\" /> ";
-					trHtml+="	</td>";
-					trHtml+="</tr>";
-					
-					$("#"+tableId).append(trHtml);
-				}
-			}
- 	}
+}
 
 // =============================ArrayList=============================
 // ArrayList.

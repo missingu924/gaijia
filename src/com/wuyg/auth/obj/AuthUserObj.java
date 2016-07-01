@@ -20,11 +20,10 @@ public class AuthUserObj extends BaseDbObj
 	private String province;
 	private String city;
 	private String district;
-	private String departmentid;
-	private String departmentname;
-	private String office;
+	private String departmentcode;
+	private String officecode;
 	private String rolelevel;
-//	private List<AuthGroupObj> groups = new ArrayList<AuthGroup>();// 所在组ID列表
+	// private List<AuthGroupObj> groups = new ArrayList<AuthGroup>();// 所在组ID列表
 	private List<AuthUserRoleObj> roles = new ArrayList<AuthUserRoleObj>();// 所具备的角色ID列表
 	private List<String> functions = new ArrayList<String>();// 所具备的权限项ID列表
 
@@ -66,13 +65,13 @@ public class AuthUserObj extends BaseDbObj
 	}
 
 	@Override
-	public List<String> getUniqueIndexProperties()
+	public List<String> findUniqueIndexProperties()
 	{
 		return Arrays.asList(new String[]
 		{ "account" });
 	}
 
-	public LinkedHashMap<String, String> getProperties()
+	public LinkedHashMap<String, String> findProperties()
 	{
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 
@@ -84,10 +83,10 @@ public class AuthUserObj extends BaseDbObj
 		pros.put("telephone", "电话");
 		// pros.put("province", "province");
 		// pros.put("city", "city");
-		pros.put("district", "对应U8职员");
-		pros.put("departmentid", "部门");
+		 pros.put("district", "对应U8职员");
+		pros.put("departmentcode", "部门");
 		// pros.put("departmentname", "departmentname");
-		pros.put("office", "职务");
+		pros.put("officecode", "职务");
 		pros.put("rolelevel", "角色");
 		return pros;
 	}
@@ -107,15 +106,15 @@ public class AuthUserObj extends BaseDbObj
 		return account;
 	}
 
-//	public List<AuthGroup> getGroups()
-//	{
-//		return groups;
-//	}
-//
-//	public void setGroups(List<AuthGroup> groups)
-//	{
-//		this.groups = groups;
-//	}
+	// public List<AuthGroup> getGroups()
+	// {
+	// return groups;
+	// }
+	//
+	// public void setGroups(List<AuthGroup> groups)
+	// {
+	// this.groups = groups;
+	// }
 
 	public List<AuthUserRoleObj> getRoles()
 	{
@@ -212,34 +211,24 @@ public class AuthUserObj extends BaseDbObj
 		this.district = district;
 	}
 
-	public String getDepartmentid()
+	public String getDepartmentcode()
 	{
-		return departmentid;
+		return departmentcode;
 	}
 
-	public void setDepartmentid(String departmentid)
+	public void setDepartmentcode(String departmentcode)
 	{
-		this.departmentid = departmentid;
+		this.departmentcode = departmentcode;
 	}
 
-	public String getDepartmentname()
+	public String getOfficecode()
 	{
-		return departmentname;
+		return officecode;
 	}
 
-	public void setDepartmentname(String departmentname)
+	public void setOfficecode(String officecode)
 	{
-		this.departmentname = departmentname;
-	}
-
-	public String getOffice()
-	{
-		return office;
-	}
-
-	public void setOffice(String office)
-	{
-		this.office = office;
+		this.officecode = officecode;
 	}
 
 	public String getRolelevel()
@@ -255,10 +244,6 @@ public class AuthUserObj extends BaseDbObj
 	public boolean hasRole(String roleName)
 	{
 		if (StringUtil.isEmpty(roleName))
-		{
-			return true;
-		}
-		if (roleName.equalsIgnoreCase(rolelevel))
 		{
 			return true;
 		}
@@ -288,21 +273,21 @@ public class AuthUserObj extends BaseDbObj
 		return false;
 	}
 
-//	public boolean hasFunction(String groupName)
-//	{
-//		if (StringUtil.isEmpty(groupName))
-//		{
-//			return true;
-//		}
-//		for (int i = 0; i < groups.size(); i++)
-//		{
-//			if (groupName.equals(groups.get(i)))
-//			{
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
+	// public boolean hasFunction(String groupName)
+	// {
+	// if (StringUtil.isEmpty(groupName))
+	// {
+	// return true;
+	// }
+	// for (int i = 0; i < groups.size(); i++)
+	// {
+	// if (groupName.equals(groups.get(i)))
+	// {
+	// return true;
+	// }
+	// }
+	// return false;
+	// }
 
 	@Override
 	public String toString()

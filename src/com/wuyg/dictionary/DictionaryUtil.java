@@ -6,12 +6,12 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
-import com.hz.dict.service.DictionaryService;
-import com.hz.util.SystemConstant;
 import com.inspur.common.dictionary.Dictionary;
 import com.inspur.common.dictionary.pojo.DictItem;
 import com.wuyg.common.util.MySqlUtil;
 import com.wuyg.common.util.StringUtil;
+import com.wuyg.common.util.SystemConstant;
+import com.wuyg.dictionary.service.DictionaryService;
 
 public class DictionaryUtil
 {

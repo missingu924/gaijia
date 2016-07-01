@@ -17,6 +17,9 @@
 	{
 		licenceSucc = true;
 	}
+	
+	// 测试期间不用许可
+	licenceSucc = true;
 
 	if (!licenceSucc)
 	{

@@ -159,7 +159,7 @@ public String getCnName()
 	return "客户信息";
 }
 @Override
-public List<String> getUniqueIndexProperties()
+public List<String> findUniqueIndexProperties()
 {
 	List<String> l = new ArrayList<String>();
 //	l.add("ccusname");// 买家会员名
@@ -167,7 +167,7 @@ public List<String> getUniqueIndexProperties()
 	l.add("ccusabbname");// 收货人姓名+联系电话
 	return l;
 }
-public LinkedHashMap<String, String> getProperties()
+public LinkedHashMap<String, String> findProperties()
 {
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 

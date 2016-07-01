@@ -203,6 +203,22 @@ public interface IBaseDAO
 	 * @return 删除的数据条数
 	 */
 	public int deleteByKeys(List<String> keys);
+	
+	/**
+	 * 根据领域对象里面的属性值构造条件删除数据
+	 * 
+	 * @param domainInstance
+	 * @return
+	 */
+	public int deleteByDomainInstance(BaseDbObj domainInstance);
+	
+	/**
+	 * 根据领域对象里面的属性值构造条件删除数据,对于属性中的字符串类字段采用输入的useLike字段确定是否用like条件查询
+	 * 
+	 * @param domainInstance
+	 * @return
+	 */
+	public int deleteByDomainInstance(BaseDbObj domainInstance,boolean useLike);
 
 	/**
 	 * 根据对象实例的主键删除数据库中对应的数据

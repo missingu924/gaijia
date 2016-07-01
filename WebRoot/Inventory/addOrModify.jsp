@@ -4,9 +4,7 @@
 <%@page import="java.util.List"%> 
 <%@page import="java.util.ArrayList"%> 
 <%@page import="com.wuyg.common.util.StringUtil"%> 
-<%@page import="com.inspur.common.dictionary.util.DictionaryUtil"%> 
-<%@page import="com.hz.dict.service.DictionaryService"%> 
-<%@page import="com.hz.dict.service.IDictionaryService"%> 
+<%@page import="com.wuyg.dictionary.DictionaryUtil"%> 
 <%@page import="com.u8.obj.InventoryObj"%> 
 <!-- 基本信息 -->  
 <% 
@@ -46,11 +44,12 @@
 		{	 
 				// 做必要的检查 
 		if(!checkNull("cinvcode","<%=domainInstance.getPropertyCnName("cinvcode")%>")) return false; 
-		if(!checkNull("cinvaddcode","<%=domainInstance.getPropertyCnName("cinvaddcode")%>")) return false; 
+		if(!checkNull("cinvccode","<%=domainInstance.getPropertyCnName("cinvccode")%>")) return false; 
 		if(!checkNull("cinvname","<%=domainInstance.getPropertyCnName("cinvname")%>")) return false; 
 		if(!checkNull("cinvstd","<%=domainInstance.getPropertyCnName("cinvstd")%>")) return false; 
-		if(!checkNull("cinvccode","<%=domainInstance.getPropertyCnName("cinvccode")%>")) return false; 
 		if(!checkNull("cvencode","<%=domainInstance.getPropertyCnName("cvencode")%>")) return false; 
+		if(!checkNull("ccomunitcode","<%=domainInstance.getPropertyCnName("ccomunitcode")%>")) return false; 
+		if(!checkNull("cinvaddcode","<%=domainInstance.getPropertyCnName("cinvaddcode")%>")) return false; 
 		if(!checkNull("creplaceitem","<%=domainInstance.getPropertyCnName("creplaceitem")%>")) return false; 
 		if(!checkNull("cposition","<%=domainInstance.getPropertyCnName("cposition")%>")) return false; 
 		if(!checkNull("bsale","<%=domainInstance.getPropertyCnName("bsale")%>")) return false; 
@@ -134,7 +133,6 @@
 		if(!checkNull("cinvdefine16","<%=domainInstance.getPropertyCnName("cinvdefine16")%>")) return false; 
 		if(!checkNull("igrouptype","<%=domainInstance.getPropertyCnName("igrouptype")%>")) return false; 
 		if(!checkNull("cgroupcode","<%=domainInstance.getPropertyCnName("cgroupcode")%>")) return false; 
-		if(!checkNull("ccomunitcode","<%=domainInstance.getPropertyCnName("ccomunitcode")%>")) return false; 
 		if(!checkNull("casscomunitcode","<%=domainInstance.getPropertyCnName("casscomunitcode")%>")) return false; 
 		if(!checkNull("csacomunitcode","<%=domainInstance.getPropertyCnName("csacomunitcode")%>")) return false; 
 		if(!checkNull("cpucomunitcode","<%=domainInstance.getPropertyCnName("cpucomunitcode")%>")) return false; 
@@ -294,6 +292,13 @@
 		if(!checkNull("fminsplit","<%=domainInstance.getPropertyCnName("fminsplit")%>")) return false; 
 		if(!checkNull("bspecialorder","<%=domainInstance.getPropertyCnName("bspecialorder")%>")) return false; 
 		if(!checkNull("btracksalebill","<%=domainInstance.getPropertyCnName("btracksalebill")%>")) return false; 
+		if(!checkNull("cinvmnemcode","<%=domainInstance.getPropertyCnName("cinvmnemcode")%>")) return false; 
+		if(!checkNull("iplandefault","<%=domainInstance.getPropertyCnName("iplandefault")%>")) return false; 
+		if(!checkNull("ipfbatchqty","<%=domainInstance.getPropertyCnName("ipfbatchqty")%>")) return false; 
+		if(!checkNull("iallocateprintdgt","<%=domainInstance.getPropertyCnName("iallocateprintdgt")%>")) return false; 
+		if(!checkNull("bcheckbatch","<%=domainInstance.getPropertyCnName("bcheckbatch")%>")) return false; 
+		if(!checkNull("bmngoldpart","<%=domainInstance.getPropertyCnName("bmngoldpart")%>")) return false; 
+		if(!checkNull("ioldpartmngrule","<%=domainInstance.getPropertyCnName("ioldpartmngrule")%>")) return false; 
 					 
 			// 修改 
 			if("true"=="<%=isModify%>") 
@@ -346,10 +351,10 @@
 				<input type="hidden" id="<%=domainInstance.findKeyColumnName()%>" name="<%=domainInstance.findKeyColumnName()%>" value="<%=domainInstance.getKeyValue()%>"> 
 				<tr> 
 					<td> 
-						<%=domainInstance.getPropertyCnName("cinvaddcode") %>: 
+						<%=domainInstance.getPropertyCnName("cinvccode") %>: 
 					</td> 
 					<td> 
-						<input name="cinvaddcode" type="text" id="cinvaddcode" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCinvaddcode(),"")%>" size="20"  > 
+						<%=DictionaryUtil.getInputHtml("U8存货类别字典", "cinvccode", StringUtil.getNotEmptyStr(domainInstance.getCinvccode(), ""))%> 
 						<font color="red">*</font> 
 					</td> 
 				</tr> 
@@ -373,19 +378,28 @@
 				</tr> 
 				<tr> 
 					<td> 
-						<%=domainInstance.getPropertyCnName("cinvccode") %>: 
+						<%=domainInstance.getPropertyCnName("cvencode") %>: 
 					</td> 
 					<td> 
-						<input name="cinvccode" type="text" id="cinvccode" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCinvccode(),"")%>" size="20"  > 
+						<%=DictionaryUtil.getSelectHtml("U8供应商字典", "cvencode", StringUtil.getNotEmptyStr(domainInstance.getCvencode(), ""))%> 
 						<font color="red">*</font> 
 					</td> 
 				</tr> 
 				<tr> 
 					<td> 
-						<%=domainInstance.getPropertyCnName("cvencode") %>: 
+						<%=domainInstance.getPropertyCnName("ccomunitcode") %>: 
 					</td> 
 					<td> 
-						<input name="cvencode" type="text" id="cvencode" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCvencode(),"")%>" size="20"  > 
+						<%=DictionaryUtil.getSelectHtml("U8计量单位字典", "ccomunitcode", StringUtil.getNotEmptyStr(domainInstance.getCcomunitcode(), ""))%> 
+						<font color="red">*</font> 
+					</td> 
+				</tr> 
+				<tr> 
+					<td> 
+						<%=domainInstance.getPropertyCnName("cinvaddcode") %>: 
+					</td> 
+					<td> 
+						<input name="cinvaddcode" type="text" id="cinvaddcode" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCinvaddcode(),"")%>" size="20"  > 
 						<font color="red">*</font> 
 					</td> 
 				</tr> 
@@ -1133,15 +1147,6 @@
 					</td> 
 					<td> 
 						<input name="cgroupcode" type="text" id="cgroupcode" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCgroupcode(),"")%>" size="20"  > 
-						<font color="red">*</font> 
-					</td> 
-				</tr> 
-				<tr> 
-					<td> 
-						<%=domainInstance.getPropertyCnName("ccomunitcode") %>: 
-					</td> 
-					<td> 
-						<input name="ccomunitcode" type="text" id="ccomunitcode" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCcomunitcode(),"")%>" size="20"  > 
 						<font color="red">*</font> 
 					</td> 
 				</tr> 
@@ -2573,6 +2578,69 @@
 					</td> 
 					<td> 
 						<input name="btracksalebill" type="text" id="btracksalebill" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBtracksalebill(),"")%>" size="20"  > 
+						<font color="red">*</font> 
+					</td> 
+				</tr> 
+				<tr> 
+					<td> 
+						<%=domainInstance.getPropertyCnName("cinvmnemcode") %>: 
+					</td> 
+					<td> 
+						<input name="cinvmnemcode" type="text" id="cinvmnemcode" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCinvmnemcode(),"")%>" size="20"  > 
+						<font color="red">*</font> 
+					</td> 
+				</tr> 
+				<tr> 
+					<td> 
+						<%=domainInstance.getPropertyCnName("iplandefault") %>: 
+					</td> 
+					<td> 
+						<input name="iplandefault" type="text" id="iplandefault" value="<%=StringUtil.getNotEmptyStr(domainInstance.getIplandefault(),"")%>" size="20"  > 
+						<font color="red">*</font> 
+					</td> 
+				</tr> 
+				<tr> 
+					<td> 
+						<%=domainInstance.getPropertyCnName("ipfbatchqty") %>: 
+					</td> 
+					<td> 
+						<input name="ipfbatchqty" type="text" id="ipfbatchqty" value="<%=StringUtil.getNotEmptyStr(domainInstance.getIpfbatchqty(),"")%>" size="20"  > 
+						<font color="red">*</font> 
+					</td> 
+				</tr> 
+				<tr> 
+					<td> 
+						<%=domainInstance.getPropertyCnName("iallocateprintdgt") %>: 
+					</td> 
+					<td> 
+						<input name="iallocateprintdgt" type="text" id="iallocateprintdgt" value="<%=StringUtil.getNotEmptyStr(domainInstance.getIallocateprintdgt(),"")%>" size="20"  > 
+						<font color="red">*</font> 
+					</td> 
+				</tr> 
+				<tr> 
+					<td> 
+						<%=domainInstance.getPropertyCnName("bcheckbatch") %>: 
+					</td> 
+					<td> 
+						<input name="bcheckbatch" type="text" id="bcheckbatch" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBcheckbatch(),"")%>" size="20"  > 
+						<font color="red">*</font> 
+					</td> 
+				</tr> 
+				<tr> 
+					<td> 
+						<%=domainInstance.getPropertyCnName("bmngoldpart") %>: 
+					</td> 
+					<td> 
+						<input name="bmngoldpart" type="text" id="bmngoldpart" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBmngoldpart(),"")%>" size="20"  > 
+						<font color="red">*</font> 
+					</td> 
+				</tr> 
+				<tr> 
+					<td> 
+						<%=domainInstance.getPropertyCnName("ioldpartmngrule") %>: 
+					</td> 
+					<td> 
+						<input name="ioldpartmngrule" type="text" id="ioldpartmngrule" value="<%=StringUtil.getNotEmptyStr(domainInstance.getIoldpartmngrule(),"")%>" size="20"  > 
 						<font color="red">*</font> 
 					</td> 
 				</tr> 
